@@ -16,7 +16,7 @@ const cors       = require('cors');
 
 
 mongoose
-  .connect('mongodb://localhost/podermexico', {useNewUrlParser: true})
+  .connect(process.env.DB || 'mongodb://localhost/podermexico', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -81,6 +81,9 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
+
+const product = require('./routes/product');
+app.use('/',product);
       
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, console.log('listen on ${PORT}'))
