@@ -13,7 +13,7 @@ const foodStandSchema = new Schema({
         favs:  Number
     },
     date: { type: Date, default: Date.now },
-    category:       [{
+    category:[{
         type: String,
         enum : ['Tacos', 'Tortas', 'Hamburguesas', 'Hotdogs', 'Pizzas','Quesadillas','Pambazos','Chilakillers','Otro'],
         default : 'N/A'

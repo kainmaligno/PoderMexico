@@ -4,16 +4,21 @@ const Schema   = mongoose.Schema;
 const productSchema = new Schema ({
   name: String,
   price: Number,
-  categorie: [{
+  category: [{
     type: String,
-    enum:['Leche y derivados','Carnes, pescados y huevos',
-          'Patatas legumbres, frutos secos','Verduras y Hortalizas',
-          'Cereales y derivados, azúcar y dulces',
+    enum:['Leche y derivados', 
+          'Carnes, pescados y huevos',
+          'Patatas legumbres', 
+          'frutos secos', 
+          'Verduras y Hortalizas',
+          'Cereales y derivados', 
+          'azúcar y dulces',
           'Grasas, aceite y mantequilla'],
-    default:'articulo'
+    default:'ninguno'
   }],
   qty: Number,
-  img: String,
+  imgPath:        String,
+  imgName:        String,
   createdBy: {type:mongoose.Schema.Types.ObjectId, ref:"User"}
 });
 
