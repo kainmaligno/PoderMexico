@@ -87,6 +87,12 @@ app.use('/',product);
 
 const client = require('./routes/client');
 app.use('/', client);
+
+const foodStand = require('./routes/foodStand');
+app.use('/', foodStand);
+
+const store = require('./routes/store');
+app.use('/', store);
       
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, console.log('listen on ${PORT}'))

@@ -68,6 +68,7 @@ router.post("/signup_client", uploadCloud.single('photo'), (req, res, next) => {
   //const imgPath = req.file.url;
   //const imgName = req.file.originalname;
   let location = { type: 'Point', coordinates: [longitude, latitude] };
+
   if (username === "" || password === "") {
     res.render("auth/signup_client", { message: "Indicate username and password" });
     return;
@@ -75,7 +76,7 @@ router.post("/signup_client", uploadCloud.single('photo'), (req, res, next) => {
 
   Client.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
+      res.render("/signup_client", { message: "The username already exists" });
       return;
     }
 
@@ -95,7 +96,7 @@ router.post("/signup_client", uploadCloud.single('photo'), (req, res, next) => {
       res.redirect("/");
     })
     .catch(err => {
-      res.render("auth/signup_client", { message: "Something went wrong" });
+      res.render("/signup_client", { message: "Something went wrong" });
     })
   });
 });

@@ -4,7 +4,8 @@ const Schema   = mongoose.Schema;
 const clientSchema = new Schema({
   username: String,
   password: String,
-
+  imgName:String,
+  imgPath: String,
   location:{ type:{ type:String, }, coordinates:[Number] },
     address:String,
     

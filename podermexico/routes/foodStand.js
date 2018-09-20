@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const FoodStand = require("../models/FoodStand");
-const User = require("../models/user");
 const uploadCloud = require("../config/cloudinary");
-const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 //revisa la autenticacion del user
 function isLoggedIn(req, res, next) {
@@ -20,9 +18,9 @@ router.get("/newFoodStand", (req, res) => {
 //nuevo lugar (post)
 router.post("/newFoodStand", uploadCloud.single('photo'), (req, res, next) => {
 
-  const imgPath = req.file.url;
-  const imgName = req.file.originalname;
-  const { name, description, category, address, longitude, latitude } = req.body;
+  //const imgPath = req.file.url;
+  //const imgName = req.file.originalname;
+  const { name, description, category, address, longitude, latitude, imgName, imgPath } = req.body;
   let postedBy = req.user.id;
   let location = { type: 'Point', coordinates: [longitude, latitude] };
 
@@ -32,7 +30,7 @@ router.post("/newFoodStand", uploadCloud.single('photo'), (req, res, next) => {
     name: name,
     description,
     category,
-    location: location,
+    location,
     address,
     imgName,
     imgPath

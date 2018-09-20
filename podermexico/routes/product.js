@@ -59,7 +59,7 @@ router.get("/product/:id", async (req, res, next) => {
 router.put("/update_product/:id", async (req, res, next) => {
   let update = await Product.findByIdAndUpdate(req.params.id, {$set: req.body},function (err, product)  {
     if (err) return next(err);
-    res.status(200).send('Product udpated.');
+    res.status(200).send('Product udpated.',update);
 });
 })
 
