@@ -21,5 +21,5 @@ meta: {
     }
 })
 
-const Post = moongose.Schema('Post', postSchema);
+const Post = mongoose.model('Post', postSchema);
  module.exports = Post
