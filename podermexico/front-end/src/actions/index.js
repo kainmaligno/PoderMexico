@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOGIN_USER, SIGNUP_USER} from './types'
+import {LOGIN_USER, SIGNUP_USER, LOGOUT_USER} from './types'
 import swal from 'sweetalert2'
 const baseUrl = `http://localhost:3000/auth/`;
 
@@ -22,6 +22,8 @@ export const loginUser = (username, password) => {
 
     .catch(error => {
       swal({
+        type:'error',
+        title:'algo salio mal',
         
       })
     })
@@ -35,7 +37,7 @@ export const signupUser = (username, password) => {
     .then(res => {
       swal({
         type: 'success',
-        title: 'usuario registrado',
+        title: 'Usuario registrado',
         text: res.data.username
       })
       return res
@@ -45,4 +47,10 @@ export const signupUser = (username, password) => {
       payload: res
     }))
   }
+}
+
+export const logoutUser = () => async dispatch => {
+  await axios.get(`${baseUrl}/logout`)
+  swal({type:'succes', titile:'Hasta la Proxima'})
+  dispatch({type: LOGOUT_USER, payload:{}})
 }

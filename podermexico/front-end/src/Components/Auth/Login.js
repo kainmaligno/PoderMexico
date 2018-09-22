@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
-
+import { Button, Icon } from 'react-materialize'
 import {connect} from 'react-redux';
+import swal from 'sweetalert2'
 import  * as actions from '../../actions'
 
 class Login extends Component{
@@ -31,6 +32,11 @@ class Login extends Component{
     const {username, password} = this.state
     event.preventDefault()
     this.props.loginUser(username,password)
+    swal({
+      type: 'success',
+      title: 'Acceso Correcto',
+      text: this.state.username
+    })
   
   }
 
@@ -41,20 +47,21 @@ class Login extends Component{
     <form onSubmit={this.submit} className ='col s12'>
       <div className = 'row'>
           <div className="input-field col s12">
-            <input  onChange={this.inputChange} placeholder='username' name='username' id='username' type='text' className="validate"/>
-           
+            <input  onChange={this.inputChange} name='username' id='username' type='text' className="validate"/>
+            <label htmlFor="username">User name</label>
           </div>
       </div>
       <div className="row">
         <div className="input-field col s12">
-            <input  onChange={this.inputChange} placeholder='password' id="password" name='password' type="password" className="validate"/>
-        
+            <input  onChange={this.inputChange}  id="password" name='password' type="password" className="validate"/>
+            <label htmlFor='password'>Password</label>
         </div>
       </div>
-      <div className ='row'>
+      <div className ='row s6 m12 l12'>
       <button className="btn waves-effect waves-light" type="submit" value='login' name="action">Submit
     <i className="material-icons right">send</i>
-  </button>  <span> or <Link to='/signup'>Signup</Link></span>
+  </button>  <span> or <Link to='/signup'><Button waves='light'><Icon right>account_circle</Icon>Signup</Button></Link></span> 
+  <Link to="/home"><Button waves='light'><Icon right>home</Icon>Home</Button></Link>
       </div>
      
     </form>
