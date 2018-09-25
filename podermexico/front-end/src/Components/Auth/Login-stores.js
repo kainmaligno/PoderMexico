@@ -41,6 +41,7 @@ class Login extends Component{
     return (this.state.user === '')?
     (<div className = 'row'>
     <form onSubmit={this.submit} className ='container'>
+      <h1>Bienvenido Administrador</h1>
       <div className = 'row'>
           <div className="input-field col s12">
             <input  onChange={this.inputChange} name='username' id='username' type='text' className="validate"/>

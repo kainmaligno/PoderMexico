@@ -6,7 +6,7 @@ const CardHome = () => {
     <div className='card-home'>
     <Row>
     <Col lx={3} l={3} m={4} s={2}> 
-      <Link to='/stores'>
+      <Link to='/signup_stores'>
         <Card className='deep-purple darken-2' textClassName='white-text' title='Tiendas' 
           actions={[<a href='/stores'>Registro</a>]}>
         Registra tu Comercio <Icon>add_circle</Icon>
@@ -14,7 +14,7 @@ const CardHome = () => {
       </Link>    
    </Col>
 
-    <Link to='/'>
+    <Link to='/signup'>
     <Col lx={3} l={3} m={4} s={2}>
       <Card className='deep-purple darken-2' textClassName='white-text' title='Clientes' 
         actions={[<a href='/'>Dale Click y Registra</a>]}>
@@ -23,7 +23,7 @@ const CardHome = () => {
       </Col>
     </Link>
       
-    <Link to='/'>
+    <Link to='/newfood'>
     <Col lx={3} l={3} m={4} s={2}>
       <Card className='deep-purple darken-2' textClassName='white-text' title='Iron Puestos' 
        actions={[<a href='/'>Recomienda o Registra</a>]}>
@@ -40,8 +40,6 @@ const CardHome = () => {
     </Card>
       </Col>
     </Link>
-
-     
     </Row>
    
     </div>

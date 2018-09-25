@@ -68,7 +68,7 @@ router.delete("/remove_product/:id", async (req, res, next) => {
   
   let erase =  await Product.findByIdAndRemove(req.params.id, err => {
     if (err) return next(err);
-    res.status(200).send("Deleted successfully!");
+    res.status(200).send("Deleted successfully!",erase);
   });
 });
 

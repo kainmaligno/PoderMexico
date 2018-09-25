@@ -21,18 +21,20 @@ class Signup extends Component{
 
   submit = event => {
     event.preventDefault()
-    console.log(event)
+
     swal({
       type: 'success',
       title: 'Usuario Creado',
       text: this.state.username
     })
+  
   }
 
   onRedirect = () => {
     return (this.state.user === '')?
     (<div className = 'row container'>
     <form onSubmit={this.submit} className ='col s12'>
+     <h1>Registrate como Administrador de Tiendas</h1>
       <div className = 'row'>
           <div className="input-field col s12">
             <input  onChange={this.inputChange} name='username' id='username' type='text' className="validate"/>

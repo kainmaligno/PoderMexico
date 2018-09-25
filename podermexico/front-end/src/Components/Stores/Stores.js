@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import swal from "sweetalert2";
 import { Link, Redirect } from 'react-router-dom'
 import {Button, Icon, } from 'react-materialize'
+
+
 class Stores extends Component {
 
    state = {
-        user:'',
-        username:'',
-        password: '',
+        name:'',
         description: '',
         address: '',
         file: {},
@@ -25,40 +25,75 @@ class Stores extends Component {
 
    submit = event => {
      event.preventDefault()
-     swal({
-      type: 'success',
-      title: 'Usuario Creado',
-      text: this.state.username
-    })
+     console.log(event);
    }
   render() {
     return (
       <div className="container">
+      <h1>Registra una Tienda</h1>
         <form onSubmit={this.submit} className="col s12">
           <div className="row">
             <div className="input-field col s12">
               <input
                 onChange={this.inputChange}
-                name="username"
-                id="username"
+                name="name"
+                id="name"
                 type="text"
                 className="validate"
               />
-              <label htmlFor="username">User name</label>
+              <label htmlFor="name">Nombre de la Tienda</label>
             </div>
           </div>
-          <div className="row">
-            <div className="input-field col s12">
+          <div className='row'>
+            <div className='input-field col s12'>
               <input
-                onChange={this.inputChange}
-                id="password"
-                name="password"
-                type="password"
-                className="validate"
-              />
-              <label htmlFor="password">Password</label>
+              onChange={this.inputChange}
+              id='description'
+              name='description'
+              type='text'
+              className='validate'
+              ></input>
+              <label htmlFor='description'>Descripcion</label>
             </div>
           </div>
+          <div className='row'>
+            <div className='input-field col s12'>
+              <input
+              onChange={this.inputChange}
+              id='address'
+              name='address'
+              type='text'
+              className='validate'
+              ></input>
+              <label htmlFor='address'>Direccion</label>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='input-field col s12'>
+            <label htmlFor='file'>Toma Imagen</label>
+              <input
+              onChange={this.inputChange}
+              id='file'
+              name='file'
+              type='file'
+              className='validate'
+              ></input>
+              
+            </div>
+            <div className='row'>
+            <div className='input-field col s12'>
+              <input
+              onChange={this.inputChange}
+              id='location'
+              name='location'
+              type='text'
+              className='validate'
+              ></input>
+              <label htmlFor='location'>Geolocalizacion</label>
+            </div>
+          </div>
+          </div>
+          
           <div className="row">
             <button
               className="btn waves-effect waves-light"
