@@ -12,6 +12,7 @@ const Navbar = () => {
         </Link>
         <SignedInLinks />
         <SignedOutLinks />
+      
       </div>
     </nav>
   );

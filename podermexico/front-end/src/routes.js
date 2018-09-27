@@ -15,6 +15,8 @@ import Home from './Components/Home';
 import Stores from './Components/Stores/Stores'
 //FOODSTANDS
 import FoodStand from './Components/FoodStands/NewFood'
+import MapView from './Components/Maps/Map'
+import MapComponent from './Components/Maps/MapComponent';
     export default () => <Router>
       <div className=''>
       <Switch>
@@ -26,7 +28,9 @@ import FoodStand from './Components/FoodStands/NewFood'
           <Route  path ='/private_stores' component = {Privatestores}/>
           <Route  path ='/login_stores'   component = {Loginstores}/>
           <Route  path = '/stores'        component = {Stores}/>
-          <Route  path='/newfood'         component = {FoodStand}/>
+          <Route  path ='/newfood'        component = {FoodStand}/>
+          <Route  path = '/map'           component = {MapView}/>
+          <Route  path = '/mapcompo'      component = {MapComponent}/>
       </Switch>
        
       </div>

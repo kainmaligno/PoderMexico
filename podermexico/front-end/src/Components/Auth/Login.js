@@ -59,6 +59,7 @@ class Login extends Component{
   </button>  <span> or <Link to='/signup'><Button waves='light'><Icon right>account_circle</Icon>Signup</Button></Link></span> 
   <Link to="/home"><Button waves='light'><Icon right>home</Icon>Home</Button></Link>
       </div>
+      
      
     </form>
     </div> ) :
