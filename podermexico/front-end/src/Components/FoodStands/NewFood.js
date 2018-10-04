@@ -6,16 +6,25 @@ import MapContainer from "../Maps/MapContainer";
 
   
 class NewFood extends Component {
-  state= {
+  state= {  
+    name:'',
+    descripcion:'',
+    file:{},
+    selec: ''
 
   }
-  
+
   onChange = event => {
-    console.log(event);
+    const {target} = event
+    const { name, value } = target
+    this.setState({
+        [name]: value
+    })
   };
 
   onSubmit = event => {
-    console.log(event);
+    event.preventDefault();
+    console.log(this.state);
   };
 
 
@@ -23,42 +32,12 @@ class NewFood extends Component {
     return (
       <div className="container">
         <div className='row'>
-        <form onSubmit={this.submit} className="col s12">
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                onChange={this.handleChange}
-                name="name"
-                className="validate"
-                type="text"
-                id="name"
-              />
-              <label htmlFor="name">Nombre</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                onChange={this.handleChange}
-                name="descritpcion"
-                className="materialize-textarea"
-                type="text"
-                id="description"
-              />
-              <label htmlFor="description">Descripcion</label>
-            </div>
-          </div>
-          <div className="file-field input-field">
-            <div className="btn">
-              <span>File</span>
-              <input type="file" />
-            </div>
-            <div className="file-path-wrapper">
-              <input className="file-path validate" type="text" />
-            </div>
-          </div>
-          <div className="input-field col s12">
-            <select  htmlFor='category'>
+        <form onSubmit={this.onSubmit} className="col s12">
+        <h4>Registra un Puesto</h4>
+        <Input onChange={this.onChange} name='name'  placeholder="Nombre" s={12} m={8}/>
+        <Input onChange={this.onChange} name='descripcion' placeholder='Descripcion' s={12} m={8} type='textarea' label='Descripcion'/>
+        <Input onChange={this.onChange} name='file' type="file" label="Foto" s={12}  m={8}/>
+        <Input onChange={this.onChange} name='select' s={12} m={8}type='select' label='Tipo de Lugar' icon='restaurant_menu' defaultValue='2'>
                 <option value='Tacos'>Tacos</option>
                 <option value='Tortas'>Tortas</option>
                 <option value='Hamburguesas'>Hamburguesas</option>
@@ -68,40 +47,30 @@ class NewFood extends Component {
                 <option value='Pambazos'>Pambazos</option>
                 <option value='Chilakillers'>Chilakillers</option>
                 <option value='Otro'>Otro</option>
-            </select>
-            <label id='category' name='category' >Escoge tu Tipo de puesto</label>
-           
-          </div>
-          <div className='row'>
-          <MapContainer/>
-          </div>
-         
-        
-
-
+        </Input>
+        <div className='map-food right'>
+        <MapContainer/>
+        </div>
+       
            {/* botonera */}
-          <div className="row">
-            <button
-              className="btn waves-effect waves-light"
-              type="submit"
-              value="submit"
-              name="action"
-            >
-              Enviar
-              <i className="material-icons right">send</i>
-            </button>{" "}
-            <span>
-              {" "}
-              o"{" "}
-              <Link to="/home">
-              <Button waves="light">
-                <Icon right>home</Icon>
-                Cancelar
+           <Row>
+            <Col>
+              <Button waves="light" className="purple">
+                {" "}
+                <Icon right>send</Icon>
+                Enviar
               </Button>
-            </Link>
-            </span>
-           
-          </div>
+            </Col>
+            <Col>
+              <Link to="/">
+                <Button waves="light" className="purple">
+                  {" "}
+                  <Icon right>cancel</Icon>
+                  Cancelar
+                </Button>
+              </Link>
+            </Col>
+          </Row>
         </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import swal from "sweetalert2";
 import { Link, Redirect } from 'react-router-dom'
-import {Button, Icon, } from 'react-materialize'
+import {Button, Icon,Input, Row,Col } from 'react-materialize'
 
 
 class Stores extends Component {
@@ -25,13 +25,14 @@ class Stores extends Component {
 
    submit = event => {
      event.preventDefault()
-     console.log(event);
+     console.log(this.state);
    }
+
   render() {
     return (
       <div className="container">
-      <h1>Registra una Tienda</h1>
         <form onSubmit={this.submit} className="col s12">
+        <h3>Registra una Tienda</h3>
           <div className="row">
             <div className="input-field col s12">
               <input
@@ -70,57 +71,38 @@ class Stores extends Component {
           </div>
           <div className='row'>
             <div className='input-field col s12'>
-            <label htmlFor='file'>Toma Imagen</label>
-              <input
+            
+              <Input
               onChange={this.inputChange}
               id='file'
               name='file'
               type='file'
               className='validate'
-              ></input>
+              label='foto'
+              ></Input>
               
             </div>
-            <div className='row'>
-            <div className='input-field col s12'>
-              <input
-              onChange={this.inputChange}
-              id='location'
-              name='location'
-              type='text'
-              className='validate'
-              ></input>
-              <label htmlFor='location'>Geolocalizacion</label>
-            </div>
+           
           </div>
-          </div>
-          
-          <div className="row">
-            <button
-              className="btn waves-effect waves-light"
-              type="submit"
-              value="submit"
-              name="action"
-            >
-              Submit
-              <i className="material-icons right">send</i>
-            </button>{" "}
-            <span>
-              {" "}
-              or{" "}
-              <Link to="/login">
-                <Button waves="light">
-                  <Icon right>account_circle</Icon>
-                  Login
+          <Row>
+            <Col>
+              <Button waves="light" className="purple">
+                {" "}
+                <Icon right>store</Icon>
+                Crear Almacen
+              </Button>
+            </Col>
+            <Col>
+              <Link to="/">
+                <Button waves="light" className="purple">
+                  {" "}
+                  <Icon right>cancel</Icon>
+                  Cancelar
                 </Button>
               </Link>
-            </span>
-            <Link to="/home">
-              <Button waves="light">
-                <Icon right>home</Icon>
-                Home
-              </Button>
-            </Link>
-          </div>
+            </Col>
+          </Row>
+         
         </form>
       </div>
     );

@@ -99,7 +99,8 @@ app.use('/', storage);
 
 const post = require('./routes/post');
 app.use('/',post);
-      
+const photo = require('./routes/photo');
+app.use('/', photo)
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, console.log('listen on ${PORT}'))
 module.exports = app;

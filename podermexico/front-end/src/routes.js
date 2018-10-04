@@ -5,33 +5,42 @@ import { BrowserRouter as Router,
 import Signup from './Components/Auth/Signup';
 import Login from './Components/Auth/Login';
 import Private from './Components/Auth/Private';
-//AUTH
-import Signupstores from './Components/Auth/Sign-stores';
-import Loginstores from './Components/Auth/Login-stores';
-import Privatestores from './Components/Auth/Private-stores';
+
 //TRANSVERSAL
 import Home from './Components/Home';
 //STORES
-import Stores from './Components/Stores/Stores'
+import CreateStore from './Components/Stores/CreateStore';
+import StoreDetails from './Components/Stores/StoreDetails';
+import StoreList from './Components/Stores/StoresList';
+import StoreSummary from './Components/Stores/StoreSummary';
+//STORAGES
+import CreateStorage from './Components/Storage/CreateStorage';
+import StorageDetails from './Components/Storage/StorageDetails';
+import StorageSummary from './Components/Storage/StorageSummary';
 //FOODSTANDS
 import FoodStand from './Components/FoodStands/NewFood'
-import MapView from './Components/Maps/Map'
-import MapComponent from './Components/Maps/MapComponent';
+import Dashboard from './Components/Layout/Dashboard';
+
+
     export default () => <Router>
-      <div className=''>
+      <div>
       <Switch>
-          <Route exact path = '/home'     component = {Home}/>
+          <Route exact path = '/'     component = {Home}/>
           <Route  path = '/signup'        component = {Signup}/>
           <Route  path = '/private'       component = {Private}/>
           <Route  path = '/login'         component = {Login}/>
-          <Route  path ='/signup_stores'  component = {Signupstores}/>
-          <Route  path ='/private_stores' component = {Privatestores}/>
-          <Route  path ='/login_stores'   component = {Loginstores}/>
-          <Route  path = '/stores'        component = {Stores}/>
+          <Route  path = '/dashboard'     component = {Dashboard}/>
+          <Route  path = '/store_details/:id' component = {StoreDetails} />
+          <Route  path = '/Store_list'    component = {StoreList} />
+          <Route  path = '/create_store'  component = {CreateStore}/>
+          <Route  path = '/store_summary' component = {StoreSummary} />
+          <Route  path = '/create_storage' component = {CreateStorage}/>
+          <Route  path = '/storage_details/:id' component = {StorageDetails}/>
+          <Route  path = '/storage_summary' component = {StorageSummary}/>
           <Route  path ='/newfood'        component = {FoodStand}/>
-          <Route  path = '/map'           component = {MapView}/>
-          <Route  path = '/mapcompo'      component = {MapComponent}/>
-      </Switch>
-       
+          {/* <Route  path = '/' component = {} />
+          <Route  path = '/' component = {} /> */}
+         
+      </Switch> 
       </div>
     </Router>

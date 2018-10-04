@@ -1,29 +1,59 @@
-const express = require("express");
+const express  = require("express");
 const passport = require('passport');
-const router = express.Router();
-const User = require("../models/User");
-
+const router   = express.Router();
+const User     = require("../models/User");
+const uploadCloud = require('../config/cloudinary');
 // Bcrypt to encrypt passwords
-const bcrypt = require("bcrypt");
+const bcrypt     = require("bcrypt");
 const bcryptSalt = 10;
+const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
+ require('../config/passport');
 
-//ESTA LOGEADO
-router.get('/loggedin', (req, res, next) => {
-  if (req.isAuthenticated()){
-    res.status(200).json(req.user);
-    return;
+
+ const checkRoles = (role) => {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    } else {
+      res.redirect('/');
+    }
   }
-})
-//SI ESTA LOGEADO MANDA PRIVATE
-router.get('/private', (req,res,next) => {
+}
+
+const checkCostumer = checkRoles('COSTUMER');
+const checkAdmin  = checkRoles('ADMIN');
+
+
+router.get('/private', ensureLoggedIn(),(req,res,next) => {
   if(req.isAuthenticated()){
-    res.json({message: 'this is a Private Message'})
+    let user = req.user
+    res.render({user})
     return;
   }
   res.status(403).json({message:'Unauthorized'});
 });
 
-
+//CHECK ROLES ON HOME
+router.get('/home', ensureLoggedIn(), async (req,res,next) =>{
+  if(req.user.role === 'ADMIN'){
+    try{
+      let user = await User.find()
+      console.log(user)
+      res.status(200).render(users)
+    }catch(error){
+   res.status(400).render(error)
+    } 
+  }
+  if(req.user.role === 'COSTUMER'){
+    try{
+      let user = await User.find()
+      console.log(user)
+      res.status(200).render(user)
+    }catch(error){
+        res.status(400).render(error)
+    }
+  }
+})
 //LOGIN
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
@@ -61,28 +91,30 @@ router.get("/signup", (req, res, next) => {
 });
 
 //SIGNUP
-router.post("/signup", (req, res, next) => {
+router.post("/signup",(req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  const role     = req.body.role;
+  const { longitude, latitude} = req.body; //cambiar a 
+ // let location = { type: 'Point', coordinates: [longitude, latitude] };
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
   }
-
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
+     res.status(200).send("auth/signup", { message: "The username already exists" });
       return;
     }
-    console.log("password",password);
     
     const salt = bcrypt.genSaltSync(bcryptSalt);
-    console.log("salt",salt);
+    
     const hashPass = bcrypt.hashSync(password, salt);
 
     const newUser = new User({
       username,
-      password: hashPass
+      password: hashPass,
+      role
     });
 
     newUser.save()
@@ -90,23 +122,30 @@ router.post("/signup", (req, res, next) => {
       res.redirect("/");
     })
     .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
+      console.log(err)
+      res.send("auth/signup", err,{ message: "Something went wrong" });
     })
   });
 });
 
+//auth with google+
+
+router.get('/google', passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/plus.profile.emails.read'
+  ]
+}));
+
+router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+  res.redirect('/private');
+});
 
 //LOGOUT
 
-router.get("/logout", (req, res) => {
+router.get("/logout", ensureLoggedOut(), (req, res) => {
   req.logout();
   res.status(200).json({message:'You are out!'})
-  //res.redirect("/");
+  res.redirect("/home");
 });
 
-
-// successRedirect: "/",
-// failureRedirect: "/auth/login",
-// failureFlash: true,
-// passReqToCallback: true
 module.exports = router;

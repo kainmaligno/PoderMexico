@@ -1,13 +1,44 @@
+html{
+  min-height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  /* background: url(/assets/piramide.jpg)center */
+  background-size:100%;
+  background-position:bottom;
+  background-color: white;
+  min-height: 100%;
 }
 
 .footer{
   position: absolute;
   bottom: 0;
   width: 100%;
-  
+}
 
+form{
+  padding: 30px;
+  margin-top: 80px;
+}
+form Button, form h5{
+  margin: 20px 0;
+}
+.map-food{
+  left: 50%
+}
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-color: #673AB7;
+  box-shadow: none;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label{
+  color: #512DA8 !important;
 }

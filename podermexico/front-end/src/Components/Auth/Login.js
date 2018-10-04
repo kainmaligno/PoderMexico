@@ -10,7 +10,12 @@ class Login extends Component{
     username: '',
     password: ''
   }
-
+  componentWillReceiveProps({data}){
+    if(data){
+      const {user} = data
+      this.setState({ user })
+    }
+  }
   inputChange = event => {
     const { target } = event
     const { name, value } = target
@@ -57,7 +62,7 @@ class Login extends Component{
       <button className="btn waves-effect waves-light" type="submit" value='login' name="action">Submit
     <i className="material-icons right">send</i>
   </button>  <span> or <Link to='/signup'><Button waves='light'><Icon right>account_circle</Icon>Signup</Button></Link></span> 
-  <Link to="/home"><Button waves='light'><Icon right>home</Icon>Home</Button></Link>
+  <Link to="/"><Button waves='light'><Icon right>home</Icon>Home</Button></Link>
       </div>
       
      

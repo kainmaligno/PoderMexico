@@ -6,7 +6,8 @@ const baseUrl = `http://localhost:3000/auth/`;
 
 export const loginUser = (username, password) => {
   return function(dispatch){
-    axios.post(`${baseUrl}/login`, {username, password})
+    
+    axios.post(`${baseUrl}login`, {username, password})
     .then(res => {
       swal({
         type: 'success',
@@ -31,10 +32,11 @@ export const loginUser = (username, password) => {
 }
 
 
-export const signupUser = (username, password) => {
+export const signupUser = (username, password,role) => {
   return function(dispatch){
-    axios.post(`${baseUrl}/signup`,{username, password})
+    axios.post(`${baseUrl}signup`,{username,password,role})
     .then(res => {
+      
       swal({
         type: 'success',
         title: 'Usuario registrado',
@@ -50,7 +52,7 @@ export const signupUser = (username, password) => {
 }
 
 export const logoutUser = () => async dispatch => {
-  await axios.get(`${baseUrl}/logout`)
+  await axios.get(`${baseUrl}logout`)
   swal({type:'succes', titile:'Hasta la Proxima'})
   dispatch({type: LOGOUT_USER, payload:{}})
 }

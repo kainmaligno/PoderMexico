@@ -7,7 +7,7 @@ const clientSchema = new Schema({
   imgName:String,
   imgPath: String,
   location:{ type:{ type:String, }, coordinates:[Number] },
-    address:String,
+  address:String,
     
 }, {
   timestamps: {

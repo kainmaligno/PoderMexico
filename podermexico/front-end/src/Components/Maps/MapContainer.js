@@ -1,23 +1,22 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Component } from "react";
-import { render } from "react-dom";
 import MapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
 // Please be a decent human and don't abuse my Mapbox API token.
 // If you fork this sandbox, replace my API token with your own.
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
-const MAPBOX_TOKEN = 'pk.eyJ1Ijoic21peWFrYXdhIiwiYSI6ImNpcW1zZDQxcTAwdW9meW5uYjNlcnNlaWsifQ.Ow__TW4Z7kpIA2IS1LSbUg';
+const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2FsZW1tMjQwNyIsImEiOiJjam0xOXBxNGcwanJxM3ZwbmsxbHQ3eGI5In0.BOK45dHy4VQyEw3NBBluTA';
 
 class MapContainer extends Component {
   state = {
     viewport: {
       width: 400,
       height: 400,
-      latitude: 19.39068,
-      longitude: -99.2836988,
-      zoom: 8
-    }
+      latitude: 19.397776,
+      longitude: -99.17162,
+      zoom: 11
+    }  //
   };
 
   mapRef = React.createRef();
@@ -38,6 +37,7 @@ class MapContainer extends Component {
     this.setState({
       viewport: { ...this.state.viewport, ...viewport }
     });
+    console.log(this.state)
   };
 
   render() {
@@ -48,8 +48,10 @@ class MapContainer extends Component {
         onViewportChange={this._onViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
+      
         <Geocoder mapRef={this.mapRef} onViewportChange={this._onViewportChange} mapboxApiAccessToken={MAPBOX_TOKEN} />
       </MapGL>
+    
     );
   }
 }
