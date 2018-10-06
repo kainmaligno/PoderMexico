@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { Button, Icon } from 'react-materialize'
-import {connect} from 'react-redux';
-import  * as actions from '../../actions'
+import { Button, Icon, Row, Col } from 'react-materialize'
+import {loginUser} from '../../lib/authService'
+// import {connect} from 'react-redux';
+// import  * as actions from '../../actions'
 
 class Login extends Component{
   state = {
@@ -10,12 +11,12 @@ class Login extends Component{
     username: '',
     password: ''
   }
-  componentWillReceiveProps({data}){
-    if(data){
-      const {user} = data
-      this.setState({ user })
-    }
-  }
+  // componentWillReceiveProps({data}){
+  //   if(data){
+  //     const {user} = data
+  //     this.setState({ user })
+  //   }
+  // }
   inputChange = event => {
     const { target } = event
     const { name, value } = target
@@ -24,21 +25,27 @@ class Login extends Component{
       [name]: value
     })
   }
- componentWillReceiveProps({data}){
-   if(data){
-    this.setState({
-      user: data.username
-    })
-   }
-   
- }
   submit = event => {
     const {username, password} = this.state
     event.preventDefault()
-    this.props.loginUser(username,password)
-    localStorage.setItem('client','costumer')
-    console.log(localStorage.getItem('client'))
-    this.props.history.push('/private')
+    loginUser(username,password)
+    .then(response =>{
+      console.log(response)
+      var user    = response.data.username;
+      var role    = response.data.role;
+      var imgUser = response.data.avatarUrl;
+      localStorage.setItem('user',user);
+      localStorage.setItem('role',role);
+      localStorage.setItem('imgUser',imgUser);
+      //localStorage.setItem('info', JSON.parse({info:response.data}))
+      this.props.history.push('/private')
+      return response
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+   
+   
   } 
 
   onRedirect = () => {
@@ -58,13 +65,33 @@ class Login extends Component{
             <label htmlFor='password'>Password</label>
         </div>
       </div>
-      <div className ='row s6 m12 l12'>
-      <button className="btn waves-effect waves-light" type="submit" value='login' name="action">Submit
-    <i className="material-icons right">send</i>
-  </button>  <span> or <Link to='/signup'><Button waves='light'><Icon right>account_circle</Icon>Signup</Button></Link></span> 
-  <Link to="/"><Button waves='light'><Icon right>home</Icon>Home</Button></Link>
-      </div>
-      
+
+     <Row>
+            <Col>
+              <Button waves="light" className="purple">
+                {" "}
+                <Icon right>send</Icon>
+                Entrar
+              </Button>
+            </Col>
+            <Col>
+            <Link to="/signin">
+            <Button waves="light" className='purple'>
+              <Icon right>account_circle</Icon>
+              Login
+            </Button>
+          </Link>
+            </Col>
+            <Col>
+              <Link to="/">
+                <Button waves="light" className="purple">
+                  {" "}
+                  <Icon right>cancel</Icon>
+                  Cancelar
+                </Button>
+              </Link>
+            </Col>
+          </Row>
      
     </form>
     </div> ) :
@@ -81,8 +108,9 @@ render(){
 }
 }
 
-const mapStateToProps = ({auth}) => {
-  return auth
-}
+// const mapStateToProps = ({auth}) => {
+//   return auth
+// }connect(mapStateToProps,actions)
+//this.props.loginUser(username,password)
 
-export default connect(mapStateToProps,actions)(Login);
+export default Login;

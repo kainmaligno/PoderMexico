@@ -34,7 +34,7 @@ router.get('/private', ensureLoggedIn(),(req,res,next) => {
 });
 
 //CHECK ROLES ON HOME
-router.get('/home', ensureLoggedIn(), async (req,res,next) =>{
+router.get('/', ensureLoggedIn(), async (req,res,next) =>{
   if(req.user.role === 'ADMIN'){
     try{
       let user = await User.find()
@@ -57,6 +57,7 @@ router.get('/home', ensureLoggedIn(), async (req,res,next) =>{
 //LOGIN
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
+  console.log(res);
 });
 
 router.post('/login', (req, res, next) => {
@@ -91,11 +92,11 @@ router.get("/signup", (req, res, next) => {
 });
 
 //SIGNUP
-router.post("/signup",(req, res, next) => {
+router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const role     = req.body.role;
-  const { longitude, latitude} = req.body; //cambiar a 
+  //const { longitude, latitude} = req.body; //cambiar a 
  // let location = { type: 'Point', coordinates: [longitude, latitude] };
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
@@ -145,7 +146,7 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 router.get("/logout", ensureLoggedOut(), (req, res) => {
   req.logout();
   res.status(200).json({message:'You are out!'})
-  res.redirect("/home");
+ // res.redirect("/");
 });
 
 module.exports = router;

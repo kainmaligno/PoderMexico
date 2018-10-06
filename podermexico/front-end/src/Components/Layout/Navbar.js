@@ -4,19 +4,10 @@ import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 
 class  Navbar extends Component {
-  state = {
-    user: ''
-  }
-  componentWillReceiveProps({data}){
-    (data === undefined)?
-      this.setState({ user: '' }) :
-      this.setState({ user: data.username })
-  }
- 
-   signNav = ( ) => {
-     return (this.state.user ==='') ?  <SignedInLinks /> :  <SignedOutLinks />
+  
+   checkUser =() => {
+     return (localStorage.getItem('user')) ?  <SignedInLinks /> :  <SignedOutLinks />
    }
-
   render(){
     return (
       <nav className="nav-wrapper grey darken-3">
@@ -24,7 +15,7 @@ class  Navbar extends Component {
           <Link to="/" className="brand-logo">
             Poder Mexico
           </Link>
-         {this.signNav()}
+         {this.checkUser()}
         </div>
       </nav>
     );

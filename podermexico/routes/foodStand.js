@@ -17,23 +17,20 @@ router.get("/newFoodStand", (req, res) => {
 
 //nuevo lugar (post)
 router.post("/newFoodStand", uploadCloud.single('photo'), (req, res, next) => {
-
-  //const imgPath = req.file.url;
-  //const imgName = req.file.originalname;
-  const { name, description, category, address, longitude, latitude, imgName, imgPath } = req.body;
-  let postedBy = req.user.id;
-  let location = { type: 'Point', coordinates: [longitude, latitude] };
-
-
+  const id = req.params.id;
+  console.log('esta es la id de user ',id)
+  // const imgPath = req.file.url;
+  // const imgName = req.file.originalname;
+  const { name, description, select, address, longitude, latitude } = req.body;
+  let postedBy = id
+  //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newFoodStand = new FoodStand({
     postedBy: postedBy,
     name: name,
     description,
-    category,
-    location,
-    address,
-    imgName,
-    imgPath
+    select
+    // imgName,
+    // imgPath
   });
 
   newFoodStand.save()
@@ -63,7 +60,7 @@ router.get("/foodStand",  async (req, res) => {
 router.get('/foodstand/:id', async (req, res) => {
   const user = req.user;
   const id = req.params.id;
-  let post = await FoodStand.findById({_id: req.params.id} )
+  let post = await FoodStand.findById({_id: id} )
   .populate("postedBy")
   //.then( post => {
     res.render('ironplace/foodDetails', {post, user})

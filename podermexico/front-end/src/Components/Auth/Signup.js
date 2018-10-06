@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { Button, Icon, Row, Input, Navbar, Col} from "react-materialize";
-import { connect } from 'react-redux'
-import * as actions from '../../actions'
+//import { connect } from 'react-redux'
+//import * as actions from '../../actions'
+import { newUser } from '../../lib/authService';
 
 
 class Signup extends Component {
@@ -11,6 +12,7 @@ class Signup extends Component {
     username: "",
     password: "",
     role:''
+    
     
       
   };
@@ -30,27 +32,28 @@ class Signup extends Component {
     });
    
   };
-  handleChangeP = e => {
-    console.log('DEBUG e.target.files[0]', e.target.files[0]);
-    console.log(e.target.files[0])
-    this.setState({
-      photo: e.target.files[0]
-    })
-   
-  }
+
+  // handleChangeP = e => {
+  //   console.log('DEBUG e.target.files[0]', e.target.files[0]);
+  //   console.log(e.target.files[0])
+  //   this.setState({
+  //     photo: e.target.files[0]
+  //   })
+  // }
 
 
   submit = event => {
     event.preventDefault();
-    // let fd = new FormData()
-    //   fd.append('photo',this.state.photo,this.state.photo.name)
-    //   axios.post(`http://localhost:3000/photo/add`, fd)
-    //   .then(thing => console.log(thing))
-    //   .catch(err => console.log(err))
     const {username, password, role} = this.state
-    //console.log('estas en signup en file',fd)
-    this.props.signupUser(username,password,role)
-  
+     newUser(username, password, role) 
+    .then(response =>{
+      console.log(response) 
+      return response
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+    
   };
 
   onRedirect = () => {
@@ -107,8 +110,15 @@ class Signup extends Component {
   }
 }
 
-const mapStatetoProps = ({auth}) => {
-  return auth
-}
+// const mapStatetoProps = ({auth}) => {
+//   return auth
+// }connect(mapStatetoProps, actions)
 
-export default connect(mapStatetoProps, actions)(Signup);
+ // let fd = new FormData()
+    //   fd.append('photo',this.state.photo,this.state.photo.name)
+    // //   axios.post(`http://localhost:3000/photo/add`, fd)
+    //   .then(thing => console.log(thing))
+    //   .catch(err => console.log(err))
+    //this.props.signupUser(username,password,role)
+
+export default Signup;

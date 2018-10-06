@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
-import { CardTitle, Card, Row, Col, Icon } from 'react-materialize'
+import { CardTitle, Card, Row, Col, Icon,Parallax } from 'react-materialize'
 import chango from '../../assets/ioelegenate.jpg'
 import guerra from '../../assets/guerra.jpeg'
 const CardHome = () => {

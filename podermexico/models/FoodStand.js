@@ -13,14 +13,14 @@ const foodStandSchema = new Schema({
         favs:  Number
     },
     date: { type: Date, default: Date.now },
-    category:[{
+    select:{
         type: String,
         enum : ['Tacos', 'Tortas', 'Hamburguesas', 'Hotdogs', 'Pizzas','Quesadillas','Pambazos','Chilakillers','Otro'],
         default : 'N/A'
-    }],
+    }
     
-    location:{ type:{ type:String, }, coordinates:[Number] },
-    address:String,
+    // location:{ type:{ type:String, }, coordinates:[Number] },
+    // address:String,
     }
      ,{
     timestamps: {

@@ -9,7 +9,7 @@ const userSchema = new Schema({
     enum : ['COSTUMER','ADMIN'],
     default : 'COSTUMER'
   },
-  avatarUrl: { type: String, default: 'https://res.cloudinary.com/drakarzamael/image/upload/v1538631500/user.png' }
+    avatarUrl: { type: String, default: 'https://res.cloudinary.com/drakarzamael/image/upload/v1538631500/user.png' }
 }, {
   timestamps: {
     createdAt: 'created_at',
