@@ -2,9 +2,9 @@ import axios from 'axios';
 import swal from 'sweetalert2'
 const baseurl = `http://localhost:3000/auth/`
 
-export const newUser = (username,password,role)=> {
+export const newUser = (username,password, role)=> {
   return axios
-  .post(`${baseurl}signup`,{username, password,role})
+  .post(`${baseurl}signup`,{username, password, role})
   .then(res => {
       
     swal({
@@ -18,6 +18,7 @@ export const newUser = (username,password,role)=> {
     console.log(error)
   })
 }
+
 
 export const loginUser = (username,password) => {
   return axios

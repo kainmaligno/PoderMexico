@@ -55,10 +55,10 @@ router.get('/', ensureLoggedIn(), async (req,res,next) =>{
   }
 })
 //LOGIN
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-  console.log(res);
-});
+// router.get("/login", (req, res, next) => {
+//   res.render("auth/login", { "message": req.flash("error") });
+//   console.log(res);
+// });
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
@@ -85,26 +85,27 @@ router.post('/login', (req, res, next) => {
 });
 
 
-
-
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
-
 //SIGNUP
-router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
+router.post("/signup",(req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const role     = req.body.role;
+  // const imgName = req.file.originalname;
+  // const imgPath = req.file.url
   //const { longitude, latitude} = req.body; //cambiar a 
  // let location = { type: 'Point', coordinates: [longitude, latitude] };
   if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
+    // TODO: Mandar mensaje del back para falta de dato, por que lo estamos validando aqui.
+    //res.render("auth/signup", { message: "Indicate username and password" });
     return;
   }
+  
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-     res.status(200).send("auth/signup", { message: "The username already exists" });
+     res.status(500).json({ 
+      route: "auth/signup",  
+      message: "The username already exists" 
+    });
       return;
     }
     
@@ -118,14 +119,28 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       role
     });
 
-    newUser.save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch(err => {
-      console.log(err)
-      res.send("auth/signup", err,{ message: "Something went wrong" });
-    })
+    newUser.save((err, nuevousuario)=>{
+      if(err){
+        console.log(err);
+        return
+      }
+      console.log(nuevousuario);
+      res.status(200).json(
+        {
+          id: nuevousuario.id,
+          username: nuevousuario.username,
+          role: nuevousuario.role
+        }
+      )
+    });
+    // .then((nuevousuario) => {
+    //   //res.redirect("/");
+      
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    //   //res.send("auth/signup", err,{ message: "Something went wrong" });
+    // })
   });
 });
 
