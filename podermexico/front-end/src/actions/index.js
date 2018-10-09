@@ -4,55 +4,56 @@ import swal from 'sweetalert2'
 const baseUrl = `http://localhost:3000/auth/`;
 
 
-export const loginUser = (username, password) => {
-  return function(dispatch){
+export const loginUser = (user) => (dispatch, getState) => {
+  // const form = new FormData()
+  // for(let k in user){
+  //   form.append(k,user[k])
+  // }
+  axios.post(`${baseUrl}login`,user)
+  .then(res => {
+    dispatch({type:LOGIN_USER, user:res.data})
+    swal({
+      type: 'success',
+      title: 'Bienvenido',
+      text: res.data.username
+    })
     
-    axios.post(`${baseUrl}login`, {username, password})
-    .then(res => {
-      swal({
-        type: 'success',
-        title: 'Bienvenido',
-        text: res.data.username
-      })
-      return res
+  })
+   .catch(error => {
+    swal({
+      type:'error',
+      title:'algo salio mal',
+      text:error.message
     })
-    .then(res => dispatch({
-      type:LOGIN_USER,
-      payload:res
-    }))
-
-    .catch(error => {
-      swal({
-        type:'error',
-        title:'algo salio mal',
-        
-      })
-    })
-  }
+   })
 }
 
 
-export const signupUser = (username, password,role) => {
-  return function(dispatch){
-    axios.post(`${baseUrl}signup`,{username,password,role})
-    .then(res => {
-      
-      swal({
-        type: 'success',
-        title: 'Usuario registrado',
-        text: res.data.username
-      })
-      return res
-    })
-    .then(res => dispatch({
-      type:SIGNUP_USER,
-      payload: res
-    }))
+export const signupUser = (user) => dispatch => {
+  const form = new FormData()
+  for(let k in user){
+    form.append(k,user[k])
   }
+  axios.post(`${baseUrl}signup`,form)
+  .then(res => {
+    dispatch({type:SIGNUP_USER, user: res.data})
+    swal({
+      type: 'success',
+      title: 'Usuario registrado con exito',
+      text: res.data.username
+    })
+  })
+  .catch(e => {
+    swal({
+      type: 'error',
+      title: 'Hubo un error con el usuario',
+      text: e.message
+    })
+  })
 }
 
 export const logoutUser = () => async dispatch => {
   await axios.get(`${baseUrl}logout`)
-  swal({type:'succes', titile:'Hasta la Proxima'})
+  swal({type:'succes', title:'Hasta la Proxima'})
   dispatch({type: LOGOUT_USER, payload:{}})
 }

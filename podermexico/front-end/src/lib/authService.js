@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert2'
+import { Redirect } from 'react-router-dom';
 const baseurl = `http://localhost:3000/auth/`
 
 export const newUser = (username,password, role)=> {
@@ -24,7 +25,7 @@ export const loginUser = (username,password) => {
   return axios
   .post(`${baseurl}login`,{username,password})
   .then(res => {
-   console.log(localStorage)
+  
     swal({
       type: 'success',
       title: 'Bien venido ',
@@ -33,6 +34,13 @@ export const loginUser = (username,password) => {
     return res
   })
   .catch(error => {
+
+    swal({
+      type: 'error',
+      title: 'Error en la autenticacion',
+      text: error
+    })
+  
     console.log(error)
   })
 }

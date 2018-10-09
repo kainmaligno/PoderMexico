@@ -2,6 +2,7 @@ import React, {Component } from "react";
 import { Link } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
+import { connect } from 'react-redux';
 
 class  Navbar extends Component {
   
@@ -22,5 +23,5 @@ class  Navbar extends Component {
   }
  
 };
-
-export default Navbar;
+const mapStateToProps = ({ auth }) => auth
+export default connect(mapStateToProps)(Navbar)

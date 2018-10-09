@@ -1,55 +1,41 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Button, Icon, Row, Col } from 'react-materialize'
-import {loginUser} from '../../lib/authService'
-// import {connect} from 'react-redux';
-// import  * as actions from '../../actions'
+//import {loginUser} from '../../lib/authService'
+import {connect} from 'react-redux';
+import  * as actions from '../../actions'
 
 class Login extends Component{
   state = {
-    user: '',
+    user:'',
     username: '',
     password: ''
   }
-  // componentWillReceiveProps({data}){
-  //   if(data){
-  //     const {user} = data
-  //     this.setState({ user })
-  //   }
-  // }
+  
+  componentWillReceiveProps(data){
+    console.log(data)
+    if(data.auth){
+      const {user} = data.auth
+      this.setState({ user })
+    }
+    console.log(this.state.user)
+    localStorage.setItem('user',JSON.stringify(data.auth))
+  }
+
   inputChange = event => {
     const { target } = event
     const { name, value } = target
-
     this.setState({
       [name]: value
     })
   }
+
   submit = event => {
-    const {username, password} = this.state
     event.preventDefault()
-    loginUser(username,password)
-    .then(response =>{
-      console.log(response)
-      var user    = response.data.username;
-      var role    = response.data.role;
-      var imgUser = response.data.avatarUrl;
-      localStorage.setItem('user',user);
-      localStorage.setItem('role',role);
-      localStorage.setItem('imgUser',imgUser);
-      //localStorage.setItem('info', JSON.parse({info:response.data}))
-      this.props.history.push('/private')
-      return response
-    })
-    .catch(error=>{
-      console.log(error)
-    })
-   
-   
+    this.props.loginUser(this.state)  
   } 
 
   onRedirect = () => {
-    
     return (this.state.user === '')?
     (<div className = 'row'>
     <form onSubmit={this.submit} className ='container'>
@@ -68,17 +54,17 @@ class Login extends Component{
 
      <Row>
             <Col>
-              <Button waves="light" className="purple">
+              <Button type='submit' waves="light" className="purple">
                 {" "}
                 <Icon right>send</Icon>
                 Entrar
               </Button>
             </Col>
             <Col>
-            <Link to="/signin">
+            <Link to="/signup">
             <Button waves="light" className='purple'>
-              <Icon right>account_circle</Icon>
-              Login
+              <Icon right>person_add</Icon>
+              SignUp
             </Button>
           </Link>
             </Col>
@@ -108,9 +94,10 @@ render(){
 }
 }
 
-// const mapStateToProps = ({auth}) => {
-//   return auth
-// }connect(mapStateToProps,actions)
-//this.props.loginUser(username,password)
+const mapStateToProps = ({ auth }) => {
+  return {
+    auth:auth
+  }
+ }
 
-export default Login;
+export default connect(mapStateToProps,actions)(Login)

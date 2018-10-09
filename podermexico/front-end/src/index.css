@@ -42,3 +42,11 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #512DA8 !important;
 }
+
+.avatar{
+  display: flex;
+  flex-grow: inherit;
+  justify-self: end;
+  width: 300px;
+  height: 400px;
+}

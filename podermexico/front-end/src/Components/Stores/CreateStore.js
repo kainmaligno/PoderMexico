@@ -2,19 +2,33 @@ import React, { Component } from "react";
 import swal from "sweetalert2";
 import { Link, Redirect } from 'react-router-dom'
 import {Button, Icon,Input, Row,Col } from 'react-materialize'
-
+import { connect } from 'react-redux'
+import { createStore } from '../../actions/store';
 
 class Stores extends Component {
-
+  
    state = {
+        user:'',
         name:'',
         description: '',
         address: '',
-        file: {},
-        location: {}
-
+        photo: null
+   }
+   componentWillReceiveProps(data){
+    if(data){
+      const {user} = data
+      this.setState({ user })
+    }
    }
 
+   handleChangeP = e => {
+    console.log('DEBUG e.target.files[0]', e.target.files[0]);
+    console.log(e.target.files[0])
+    this.setState({
+      photo: e.target.files[0]
+    })
+  }
+  
    inputChange = event => {
      const {target} = event
      const { name, value} = target
@@ -25,7 +39,7 @@ class Stores extends Component {
 
    submit = event => {
      event.preventDefault()
-     console.log(this.state);
+     this.props.createStore(this.state)
    }
 
   render() {
@@ -73,11 +87,10 @@ class Stores extends Component {
             <div className='input-field col s12'>
             
               <Input
-              onChange={this.inputChange}
-              id='file'
-              name='file'
+              onChange={this.handleChangeP}
+              id='photo'
+              name='photo'
               type='file'
-              className='validate'
               label='foto'
               ></Input>
               
@@ -86,10 +99,10 @@ class Stores extends Component {
           </div>
           <Row>
             <Col>
-              <Button waves="light" className="purple">
+              <Button  type='submit' waves="light" className="purple">
                 {" "}
                 <Icon right>store</Icon>
-                Crear Almacen
+                Crear Tienda
               </Button>
             </Col>
             <Col>
@@ -108,5 +121,9 @@ class Stores extends Component {
     );
   }
 }
-
-export default Stores;
+const mapDispatchToProps = (dispatch) => {
+  return{
+    createStore: (store)=> dispatch(createStore(store))
+  }
+}
+export default connect(null, mapDispatchToProps)(Stores);

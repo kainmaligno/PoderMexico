@@ -2,13 +2,16 @@ import React from 'react'
 import StoreSummary from './StoreSummary';
 
 
- const Stores_list = () => {
+ const Storeslist = ({stores}) => {
+   console.log(stores)
   return (
-    <div>
-      <StoreSummary/>
-      <StoreSummary/>
-      <StoreSummary/>
+    <div className='container'>
+     {stores && stores.map(store => {
+        return(
+          <StoreSummary store={store} key={store.id}/>
+        )
+     })}
     </div>
   )
 }
-export default Stores_list
+export default Storeslist

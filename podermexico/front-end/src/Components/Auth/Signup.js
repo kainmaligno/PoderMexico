@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { Button, Icon, Row, Input, Navbar, Col} from "react-materialize";
-//import { connect } from 'react-redux'
-//import * as actions from '../../actions'
-import axios from 'axios'
-import { newUser } from '../../lib/authService';
-import { uploadPhoto } from '../../lib/photoService'
-
-
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
 
 class Signup extends Component {
   state = {
     user: "",
     username: "",
     password: "",
-    role: '',
-    photo: {}
+    role:'',
+    photo: null
+    
+      
   };
-
   componentWillReceiveProps({data}){
     if(data){
       const {user} = data
@@ -34,38 +30,21 @@ class Signup extends Component {
     });
    
   };
-
   handleChangeP = e => {
+    console.log('DEBUG e.target.files[0]', e.target.files[0]);
     console.log(e.target.files[0])
     this.setState({
       photo: e.target.files[0]
     })
-    
-    
   }
 
 
   submit = event => {
     event.preventDefault();
-    const {username, password, role} = this.state
-    newUser(username, password, role) 
-     .then(response =>{
-     console.log(response.data)
-     console.log('---------')
-     let fd = new FormData()
-     let postedBy = response.data.id
-     console.log(postedBy)
-     fd.append('photo',this.state.photo)
-     axios.post(`http://localhost:3000/photo/add/`+postedBy,fd)
-     .then(result => console.log(result))
-     .catch(error => console.log(error))   
-     })
-     .catch(error=>{
-       console.log(error)
-     })
-    
+     //const {username, password, role} = this.state
+    this.props.signupUser(this.state)
+    this.props.history.push('/')
   };
-
 
   onRedirect = () => {
     return this.state.user === "" ? (
@@ -76,8 +55,7 @@ class Signup extends Component {
       <Row className=''>
          <Input onChange={this.inputChange}  name='username' type='text' s={6} label="Nombre de Usuario"><Icon>account_circle</Icon></Input> 
          <Input onChange={this.inputChange}  name='password' type="password" label="password" s={6}><Icon>lock</Icon></Input>
-         <Input onChange={this.handleChangeP}  type="file"   label="File" s={12} />
-         <button onClick={()=> console.log(this.state)}> Revisar URL</button>
+          <Input onChange={this.handleChangeP} type="file" name='photo'  label="File" s={12} /> 
          <Input onChange={this.inputChange}  name='role' s={12} type='select' label="Selecciona un Rol" defaultValue='COSTUMER'>
           <option value='ADMIN'>Administrador</option>
           <option value='COSTUMER'>Cliente</option>
@@ -85,7 +63,7 @@ class Signup extends Component {
       </Row>
       <Row>
             <Col>
-              <Button waves="light" className="purple">
+              <Button type="submit" waves="light" className="purple">
                 {" "}
                 <Icon right>person_add</Icon>
                 Crear Usuario
@@ -122,15 +100,8 @@ class Signup extends Component {
   }
 }
 
-// const mapStatetoProps = ({auth}) => {
-//   return auth
-// }connect(mapStatetoProps, actions)
+const mapStatetoProps = ({auth}) => {
+  return auth
+}
 
-    // let fd = new FormData()
-    //   fd.append('photo',this.state.photo,this.state.photo.name)
-    // //   axios.post(`http://localhost:3000/photo/add`, fd)
-    //   .then(thing => console.log(thing))
-    //   .catch(err => console.log(err))
-    //this.props.signupUser(username,password,role)
-
-export default Signup;
+export default connect(mapStatetoProps, actions)(Signup);

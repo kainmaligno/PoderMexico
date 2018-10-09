@@ -10,6 +10,7 @@ const storeSchema = new Schema ({
  address: String,
  imgPath: String,
  imgName: String,
+ storeImg: {type:String,  default:'https://res.cloudinary.com/drakarzamael/image/upload/v1539030397/poder-mexico/TIENDITA.jpg'}
 }
 ,{
 timestamps: {

@@ -24,13 +24,31 @@ const checkCostumer = checkRoles('COSTUMER');
 const checkAdmin  = checkRoles('ADMIN');
 
 
-router.get('/private', ensureLoggedIn(),(req,res,next) => {
+router.get('/private', ensureLoggedIn(), async (req,res,next) => {
   if(req.isAuthenticated()){
     let user = req.user
     res.render({user})
     return;
   }
   res.status(403).json({message:'Unauthorized'});
+  if(req.user.role === 'ADMIN'){
+    try{
+      let user = await User.find()
+      console.log(user)
+      res.status(200).render(users)
+    }catch(error){
+   res.status(400).render(error)
+    } 
+  }
+  if(req.user.role === 'COSTUMER'){
+    try{
+      let user = await User.find()
+      console.log(user)
+      res.status(200).render(user)
+    }catch(error){
+        res.status(400).render(error)
+    }
+  }
 });
 
 //CHECK ROLES ON HOME
@@ -61,42 +79,45 @@ router.get('/', ensureLoggedIn(), async (req,res,next) =>{
 // });
 
 router.post('/login', (req, res, next) => {
+  console.log('info del usuario',req.body.username)
+  console.log('----------------------------------------------------')
   passport.authenticate('local', (err, theUser, failureDetails) => {
     if (err) {
-      res.status(500).json({ message: 'Something went wrong' });
-      return;
+      res.status(500).json({ message: 'no hay comunicacion' })
+      return
     }
 
     if (!theUser) {
-      res.status(401).json(failureDetails);
-      return;
+      res.status(401).json(failureDetails)
+      return
     }
 
     req.login(theUser, (err) => {
       if (err) {
-        res.status(500).json({ message: 'Something went wrong' });
-        return;
+        res.status(500).json({ message: 'no hay comunicacion' })
+        return
       }
 
       // We are now logged in (notice req.user)
-      res.status(200).json(req.user);
-    });
-  })(req, res, next);
+      res.status(200).json(req.user)
+    })
+  })(req, res, next)
+   
 });
 
 
 //SIGNUP
-router.post("/signup",(req, res, next) => {
+router.post("/signup",uploadCloud.single('photo'),(req, res, next) => {
+  console.log('-------------------------------------------------------------')
   const username = req.body.username;
   const password = req.body.password;
   const role     = req.body.role;
-  // const imgName = req.file.originalname;
-  // const imgPath = req.file.url
+  const avatar = req.file.url
   //const { longitude, latitude} = req.body; //cambiar a 
  // let location = { type: 'Point', coordinates: [longitude, latitude] };
   if (username === "" || password === "") {
     // TODO: Mandar mensaje del back para falta de dato, por que lo estamos validando aqui.
-    //res.render("auth/signup", { message: "Indicate username and password" });
+    res.render({ message: "Indicate username and password" });
     return;
   }
   
@@ -116,9 +137,9 @@ router.post("/signup",(req, res, next) => {
     const newUser = new User({
       username,
       password: hashPass,
-      role
+      role,
+      avatar
     });
-
     newUser.save((err, nuevousuario)=>{
       if(err){
         console.log(err);
@@ -126,11 +147,7 @@ router.post("/signup",(req, res, next) => {
       }
       console.log(nuevousuario);
       res.status(200).json(
-        {
-          id: nuevousuario.id,
-          username: nuevousuario.username,
-          role: nuevousuario.role
-        }
+        {id:nuevousuario.id}
       )
     });
     // .then((nuevousuario) => {

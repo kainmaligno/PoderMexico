@@ -8,9 +8,8 @@ const userSchema = new Schema({
     type: String,
     enum : ['COSTUMER','ADMIN'],
     default : 'COSTUMER'
-  }
-   //avatar: {type: mongoose.Schema.Types.ObjectId, ref:'Photo'}
-  // avatarUrl: { type: String, default: 'https://res.cloudinary.com/drakarzamael/image/upload/v1538631500/user.png' }
+  },
+   avatar: { type: String, default: 'https://res.cloudinary.com/drakarzamael/image/upload/v1538631500/user.png' }
 }, {
   timestamps: {
     createdAt: 'created_at',

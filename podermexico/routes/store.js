@@ -3,6 +3,7 @@ const router = express.Router();
 const Store = require('../models/Stores');
 const uploadCloud = require('../config/cloudinary');
 
+
 //STORE
 router.get('/store', async (req, res, next) => {
   try {
@@ -15,27 +16,25 @@ router.get('/store', async (req, res, next) => {
 
 //NEW STORE
 router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
-  //const imgPath = req.file.url;
-  //const imgName = req.file.originalname;
-  const { name, description, latitude, longitude, address, imgPath, imgName } = req.body;
+  const avatar = req.file.url;
+  const { name, description, latitude, longitude, address } = req.body;
   const owner = req.user.id;
-  let location = { type: 'Point', coordinates: [longitude, latitude] };
+  //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newStore = new Store({
     owner,
     name,
     description,
-    location,
     address,
-    imgPath,
-    imgName
+    avatar
   })
   newStore
-    .save()
-    .then(() => {
-      res.status(200).send(newStore)
+    .save(err, nuevaStore)
+    .then((nuevaStore) => {
+      res.status(200).json({
+       id: nuevaStore.id})
     })
     .catch(error => {
-      res.status(400).send("algo salio mal al agregar tienda", error)
+      res.status(400).send(error,"algo salio mal al agregar tienda")
     })
 
 });

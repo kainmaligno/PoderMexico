@@ -1,50 +1,82 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-
-import { Row, Parallax, Collapsible, CollapsibleItem, Col} from "react-materialize";
-import chango from '../../assets/ioelegenate.jpg';
+import { Row, Col, Button, Icon} from "react-materialize";
+import { Link } from 'react-router-dom'
+import { connect } from "react-redux";
 
 class Private extends Component {
   state = {
     user: ""
   };
+  // componentWillReceiveProps(props){
+  //   console.log(props.data)
+  //   if(!props.data){
+  //     this.setState({user: ''})
+  //   }
 
-
-  onRedirect = () => {
-    return !this.state.user === "" ? (
-      <Redirect to="/login" />
-    ) : (
-      
-      <div className="container">
-       <Parallax imageSrc='https://res.cloudinary.com/drakarzamael/image/upload/v1538703709/poder-mexico/1_m2gDBT_nc-iE7R4AM3sHBQ.jpg'/>
-        <Row>
-            <img src={localStorage.getItem('imgUser')}/> 
-            <h1> Bienvenido: {localStorage.getItem('user')}</h1>
-            <h1> Tu eres:{localStorage.getItem('role')}</h1>
-        </Row>
-        <Col>
-            <Collapsible>
-            <CollapsibleItem header='First' icon='filter_drama'>
-              Lorem ipsum dolor sit amet.
-            </CollapsibleItem>
-            <CollapsibleItem header='Second' icon='place'>
-              Lorem ipsum dolor sit amet.
-            </CollapsibleItem>
-            <CollapsibleItem header='Third' icon='whatshot'>
-              Lorem ipsum dolor sit amet.
-            </CollapsibleItem>
-          </Collapsible>
-            </Col>
-         
-      </div>
-    );
-  };
+  // }
+  // componentWillMount(){
+  //   if(this.props.data){
+  //     this.setState({
+  //       user: this.props.data.username
+  //     })
+  //   }
+  // }
 
   render() {
-    
-    return <div>{this.onRedirect()}</div>;
+    let user = JSON.parse(localStorage.getItem("user"));
+    return (
+      <div className="container">
+        <Row l={12} m={8} s={12}>
+          <Col l={8}>
+            <h1>Hola {user.username}</h1>
+            <div className="section white">
+              <div className="row container">
+                <h2 className="header">Administrar Tienda</h2>
+                <p className="grey-text text-darken-3 lighten-3">En este dash puedes administrar tu tienda.</p>
+              </div>
+            </div>
+          </Col>
+
+          <Col l={4}>
+            <img className="avatar" src={user.avatar} />
+          </Col>
+        </Row>
+        <Row>
+        <Col>
+        <Link to='/create_store'>
+        <Button waves="light" className='purple'>
+        <Icon right>apps</Icon>
+        Crear Tienda
+        </Button>
+        </Link>
+        </Col>
+        <Col>
+        <Link to='/'>
+        <Button waves="light" className='purple'>
+        <Icon right>store</Icon>
+        Ver mi tienda
+        </Button>
+        </Link>
+        </Col>
+        <Col>
+        <Link to='/'>
+        <Button waves="light" className='purple'>
+        <Icon right>home</Icon>
+         Home
+        </Button>
+        </Link>
+        </Col>
+        
+        </Row>
+      </div>
+    );
   }
 }
 
-
-export default Private;
+const mapStateToProps = auth => {
+  return {
+    auth
+  };
+};
+export default connect(mapStateToProps)(Private);
