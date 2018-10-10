@@ -4,12 +4,21 @@ import swal from 'sweetalert2'
 const baseUrl = `http://localhost:3000/auth/`;
 
 
-export const loginUser = (user) => (dispatch, getState) => {
-  // const form = new FormData()
-  // for(let k in user){
-  //   form.append(k,user[k])
-  // }
-  axios.post(`${baseUrl}login`,user)
+export const loggedin = () => (dispatch) => {
+  axios.get(`http://localhost:3000/auth/loggedin`,{withCredentials:true})
+  .then(res => {
+    dispatch({type:LOGIN_USER, user:res.data})
+    
+  })
+  .catch(error => {
+    console.log(error)
+  })
+} 
+
+
+
+export const loginUser = (user) => (dispatch) => {
+  axios.post(`${baseUrl}login`,user,{withCredentials:true})
   .then(res => {
     dispatch({type:LOGIN_USER, user:res.data})
     swal({
@@ -19,7 +28,8 @@ export const loginUser = (user) => (dispatch, getState) => {
     })
     
   })
-   .catch(error => {
+   .catch(error => {//SI ESTA LOGEADO MANDA PRIVATE
+
     swal({
       type:'error',
       title:'algo salio mal',
@@ -34,7 +44,8 @@ export const signupUser = (user) => dispatch => {
   for(let k in user){
     form.append(k,user[k])
   }
-  axios.post(`${baseUrl}signup`,form)
+  console.log(form)
+  axios.post(`${baseUrl}signup`,form,{withCredentials:true})
   .then(res => {
     dispatch({type:SIGNUP_USER, user: res.data})
     swal({
@@ -53,7 +64,7 @@ export const signupUser = (user) => dispatch => {
 }
 
 export const logoutUser = () => async dispatch => {
-  await axios.get(`${baseUrl}logout`)
+  await axios.get(`${baseUrl}logout` , {withCredentials:true})
   swal({type:'succes', title:'Hasta la Proxima'})
   dispatch({type: LOGOUT_USER, payload:{}})
 }

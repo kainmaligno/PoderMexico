@@ -7,39 +7,36 @@ import { connect } from "react-redux";
 class Private extends Component {
   state = {
     user: ""
-  };
-  // componentWillReceiveProps(props){
-  //   console.log(props.data)
-  //   if(!props.data){
-  //     this.setState({user: ''})
-  //   }
-
-  // }
-  // componentWillMount(){
-  //   if(this.props.data){
+  }
+  
+  // componentWillMount(res){
+  //   if(res.data){
+  //     const {user} = res.data
   //     this.setState({
-  //       user: this.props.data.username
+  //       user:user
   //     })
   //   }
   // }
 
   render() {
-    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(this.props.auth.username)
+    const {auth} = this.props
     return (
       <div className="container">
         <Row l={12} m={8} s={12}>
           <Col l={8}>
-            <h1>Hola {user.username}</h1>
+            <h1>Hola:{auth.username}</h1>
             <div className="section white">
               <div className="row container">
                 <h2 className="header">Administrar Tienda</h2>
+                <span>Tienes un rol de:{auth.role}</span>
                 <p className="grey-text text-darken-3 lighten-3">En este dash puedes administrar tu tienda.</p>
               </div>
             </div>
           </Col>
 
           <Col l={4}>
-            <img className="avatar" src={user.avatar} />
+            <img className="avatar" src={auth.avatar} />
           </Col>
         </Row>
         <Row>
@@ -74,9 +71,7 @@ class Private extends Component {
   }
 }
 
-const mapStateToProps = auth => {
-  return {
-    auth
-  };
-};
+const mapStateToProps = ({auth})=> ({
+    auth: auth.user
+});
 export default connect(mapStateToProps)(Private);

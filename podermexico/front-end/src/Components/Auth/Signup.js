@@ -14,13 +14,12 @@ class Signup extends Component {
     
       
   };
-  componentWillReceiveProps({data}){
-    if(data){
-      const {user} = data
-      this.setState({ user })
-    }
-    console.log(this.state.user)
-  }
+  // componentWillReceiveProps({data}){
+  //   if(data){
+  //     const {user} = data
+  //     this.setState({ user })
+  //   }
+  // }
 
   inputChange = event => {
     const { target } = event;

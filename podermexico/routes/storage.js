@@ -13,18 +13,20 @@ router.get('/storage', async (req,res,next) => {
 })
 
 //NUEVO ALMACEN 
-router.post('/storage', (req,res,next) => {
-  const store = req.user.id
-  const product = req.body
-
+router.post('/newStorage', (req,res,next) => {
+  const {name,description} = req.body;
+  //const store = req.user.id
   const newStorage = new Storage({
-    store,
-    product
+    name,
+    description,
+    store
   })
   newStorage
   .save()
-  .then( () => {
-    res.status(200).send(newStorage)
+  .then((newStorage) => {
+    res.status(200).json({
+      storage: newStorage
+    })
   })
   .catch(error => {
     res.send('opss! algo ha salido mal', error)

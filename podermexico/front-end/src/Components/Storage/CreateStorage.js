@@ -44,7 +44,7 @@ class CreateStorage extends Component {
           </Row>
           <Row>
             <Col>
-              <Button waves="light" className="purple">
+              <Button type='submit' waves="light" className="purple">
                 {" "}
                 <Icon right>storage</Icon>
                 Crear Almacen

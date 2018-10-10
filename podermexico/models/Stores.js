@@ -6,11 +6,9 @@ const storeSchema = new Schema ({
  description: String,
  owner:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
  storage:{type:mongoose.Schema.Types.ObjectId, ref:"Storage"},
- location:{ type:{ type:String, }, coordinates:[Number] },
+ //location:{ type:{ type:String, }, coordinates:[Number] },
  address: String,
- imgPath: String,
- imgName: String,
- storeImg: {type:String,  default:'https://res.cloudinary.com/drakarzamael/image/upload/v1539030397/poder-mexico/TIENDITA.jpg'}
+ avatar: {type:String,  default:'https://res.cloudinary.com/drakarzamael/image/upload/v1539030397/poder-mexico/TIENDITA.jpg'}
 }
 ,{
 timestamps: {
@@ -21,4 +19,4 @@ timestamps: {
 
 storeSchema.index({ location: '2dsphere' });
 const Store = mongoose.model('Store', storeSchema);
-module.export = Store;
+module.exports = Store;

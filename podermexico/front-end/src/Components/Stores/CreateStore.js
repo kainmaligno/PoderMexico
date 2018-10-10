@@ -14,18 +14,17 @@ class Stores extends Component {
         address: '',
         photo: null
    }
-   componentWillReceiveProps(data){
-    if(data){
-      const {user} = data
-      this.setState({ user })
-    }
-   }
+   
 
    handleChangeP = e => {
+    const userid = JSON.parse(localStorage.getItem('user'))
     console.log('DEBUG e.target.files[0]', e.target.files[0]);
     console.log(e.target.files[0])
     this.setState({
       photo: e.target.files[0]
+    })
+    this.setState({
+      user: userid._id
     })
   }
   
@@ -39,10 +38,12 @@ class Stores extends Component {
 
    submit = event => {
      event.preventDefault()
+     console.log(this.state)
      this.props.createStore(this.state)
    }
 
   render() {
+    
     return (
       <div className="container">
         <form onSubmit={this.submit} className="col s12">
@@ -121,9 +122,13 @@ class Stores extends Component {
     );
   }
 }
+
+const mapStateToProps = ({auth}) =>({
+  auth: auth.user
+})
 const mapDispatchToProps = (dispatch) => {
   return{
-    createStore: (store)=> dispatch(createStore(store))
+    store: (store)=> dispatch(createStore(store))
   }
 }
-export default connect(null, mapDispatchToProps)(Stores);
+export default connect(mapStateToProps, mapDispatchToProps)(Stores);

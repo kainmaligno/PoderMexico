@@ -147,7 +147,12 @@ router.post("/signup",uploadCloud.single('photo'),(req, res, next) => {
       }
       console.log(nuevousuario);
       res.status(200).json(
-        {id:nuevousuario.id}
+        { 
+          username:nuevousuario.username,
+          id:nuevousuario.id,
+          role: nuevousuario.role,
+          avatar: nuevousuario.avatar
+        }
       )
     });
     // .then((nuevousuario) => {
@@ -180,5 +185,10 @@ router.get("/logout", ensureLoggedOut(), (req, res) => {
   res.status(200).json({message:'You are out!'})
  // res.redirect("/");
 });
-
+//loggedin
+router.get('/loggedin', (req,res,next)=>{
+  return(req.isAuthenticated())? (res.status(200).json(req.user)):(res.status(403).json({
+    message: "no esta autorizado"
+  }))
+})
 module.exports = router;

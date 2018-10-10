@@ -18,20 +18,20 @@ router.get('/store', async (req, res, next) => {
 router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
   const avatar = req.file.url;
   const { name, description, latitude, longitude, address } = req.body;
-  const owner = req.user.id;
+  //const owner = req.user.id;
   //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newStore = new Store({
-    owner,
+    //owner,
     name,
     description,
     address,
     avatar
   })
   newStore
-    .save(err, nuevaStore)
+    .save()
     .then((nuevaStore) => {
       res.status(200).json({
-       id: nuevaStore.id})
+       store: nuevaStore})
     })
     .catch(error => {
       res.status(400).send(error,"algo salio mal al agregar tienda")

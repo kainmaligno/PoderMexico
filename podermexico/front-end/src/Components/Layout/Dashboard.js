@@ -27,7 +27,7 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    stores:state.store.stores //ultimo parametro es el que esta en el storeReducer
+    store:state.store.store //ultimo parametro es el que esta en el storeReducer
   }
 }
 export default connect(mapStateToProps)(Dashboard)

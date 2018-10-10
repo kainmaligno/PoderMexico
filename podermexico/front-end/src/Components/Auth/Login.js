@@ -6,22 +6,13 @@ import {connect} from 'react-redux';
 import  * as actions from '../../actions'
 
 class Login extends Component{
-  state = {
-    user:'',
-    username: '',
-    password: ''
-  }
   
-  componentWillReceiveProps(data){
-    console.log(data)
-    if(data.auth){
-      const {user} = data.auth
-      this.setState({ user })
+    state = {
+      user:'',
+      username: '',
+      password: ''
     }
-    console.log(this.state.user)
-    localStorage.setItem('user',JSON.stringify(data.auth))
-  }
-
+ 
   inputChange = event => {
     const { target } = event
     const { name, value } = target
@@ -32,7 +23,8 @@ class Login extends Component{
 
   submit = event => {
     event.preventDefault()
-    this.props.loginUser(this.state)  
+    this.props.loginUser(this.state)
+    this.props.history.push('/') 
   } 
 
   onRedirect = () => {
@@ -84,9 +76,7 @@ class Login extends Component{
     (<Redirect to="/" />)
   }
 render(){
- 
   return(<div>
-     
      {this.onRedirect()}
   </div>
   
@@ -94,10 +84,8 @@ render(){
 }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return {
-    auth:auth
-  }
- }
+const mapStateToProps = ({ auth }) => ({
+  auth: auth.user
+})
 
 export default connect(mapStateToProps,actions)(Login)
