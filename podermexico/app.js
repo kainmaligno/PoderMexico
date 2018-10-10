@@ -6,7 +6,7 @@ const express      = require('express');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
+const favicon     =require('express-favicon');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
@@ -36,7 +36,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
       
-
+app.use(favicon(__dirname+'front-end/build/favicon.ico'))
+app.use(express.static(__dirname))
 app.use(express.static(path.join(__dirname, 'front-end/build')));
 
 // Enable authentication using session + passport
