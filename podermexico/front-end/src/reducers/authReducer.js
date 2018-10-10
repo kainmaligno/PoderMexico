@@ -16,7 +16,11 @@ export default (state = initialState, action) => {
     return action.user
 
     case LOGOUT_USER:
-    return action.payload
+    console.log('saliste')
+    return {
+      
+      user:action.payload 
+    }
     
     default:
     return state

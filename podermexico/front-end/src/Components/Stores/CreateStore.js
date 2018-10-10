@@ -3,12 +3,11 @@ import swal from "sweetalert2";
 import { Link, Redirect } from 'react-router-dom'
 import {Button, Icon,Input, Row,Col } from 'react-materialize'
 import { connect } from 'react-redux'
-import { createStore } from '../../actions/store';
+import * as actions from '../../actions/store';
 
 class Stores extends Component {
   
    state = {
-        user:'',
         name:'',
         description: '',
         address: '',
@@ -17,14 +16,8 @@ class Stores extends Component {
    
 
    handleChangeP = e => {
-    const userid = JSON.parse(localStorage.getItem('user'))
-    console.log('DEBUG e.target.files[0]', e.target.files[0]);
-    console.log(e.target.files[0])
     this.setState({
       photo: e.target.files[0]
-    })
-    this.setState({
-      user: userid._id
     })
   }
   
@@ -43,7 +36,7 @@ class Stores extends Component {
    }
 
   render() {
-    
+  
     return (
       <div className="container">
         <form onSubmit={this.submit} className="col s12">
@@ -123,12 +116,12 @@ class Stores extends Component {
   }
 }
 
-const mapStateToProps = ({auth}) =>({
-  auth: auth.user
+const mapStateToProps = ({stores}) =>({
+  store: stores
 })
-const mapDispatchToProps = (dispatch) => {
-  return{
-    store: (store)=> dispatch(createStore(store))
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Stores);
+// const mapDispatchToProps = (dispatch) => {
+//   return{
+//     store: (store)=> dispatch(createStore(store))
+//   }
+// }
+export default connect(mapStateToProps, actions)(Stores);

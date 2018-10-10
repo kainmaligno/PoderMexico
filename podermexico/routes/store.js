@@ -5,10 +5,11 @@ const uploadCloud = require('../config/cloudinary');
 
 
 //STORE
-router.get('/store', async (req, res, next) => {
+router.get('/get_stores', async (req, res, next) => {
+  console.log('------------------estas en getStores')
   try {
-    let store = await Store.find().populate('User');
-    res.status(200).send(store)
+    let store = await Store.find().populate('User').sort({ date: -1 })
+    res.status(200).json(store)
   } catch (error) {
     res.status(400).send("Hay algun error")
   }
@@ -18,10 +19,10 @@ router.get('/store', async (req, res, next) => {
 router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
   const avatar = req.file.url;
   const { name, description, latitude, longitude, address } = req.body;
-  //const owner = req.user.id;
+  const owner = req.user._id;
   //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newStore = new Store({
-    //owner,
+    owner,
     name,
     description,
     address,
@@ -31,7 +32,11 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
     .save()
     .then((nuevaStore) => {
       res.status(200).json({
-       store: nuevaStore})
+       store_name: nuevaStore.name,
+       store_desc: nuevaStore.description,
+       store_avatar: nuevaStore.avatar,
+       store_owner:nuevaStore.owner
+      })
     })
     .catch(error => {
       res.status(400).send(error,"algo salio mal al agregar tienda")
@@ -62,7 +67,6 @@ router.put('/update_store/:id', async (req, res, next) => {
 });
 //REMOVE STORE
 router.delete('/remove_store', async (req, res, next) => {
-
   let erase = await Store.findByIdAndRemove(req.params.id, err => {
     if (err) return next(err);
     res.status(200).send("Deleted successfully!", erase);

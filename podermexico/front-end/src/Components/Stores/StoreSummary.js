@@ -1,16 +1,24 @@
-import React from 'react'
-import { Card, CardTitle } from 'react-materialize';
+import React from "react";
+import { Card, CardTitle, Col } from "react-materialize";
 
-
-const StoreSummary = ({store}) => {
-  console.log(store)
+const StoreSummary = ({ store }) => {
   return (
-    <Card className='small'
-    header={<CardTitle image='img/sample-1.jpg'>{store.nombre}naa de nombre</CardTitle>}
-    actions={[<a href='#'>This is a Link</a>]}>
-   nada {store.nombre}
-  </Card>
-  )
-}
+    <div className="container">
+       
+       <Card
+        className="large"
+        header={<CardTitle image={store.avatar}>{store.name}</CardTitle>}
+        actions={[<a href="/store_details/:id">Ir a la tienda</a>]}
+      >
+        {store.description}
+        <hr />
+        Direccion:
+        {store.address} <hr /> y le pertenece a {store.owner}
+      </Card>
+       
+     
+    </div>
+  );
+};
 
-export default StoreSummary
+export default StoreSummary;

@@ -15,7 +15,7 @@ class SignedInLinks extends Component {
     return (
       <ul className='right'>
         <li><NavLink to='/dashboard'>Nuevo Producto</NavLink></li>
-        <li><NavLink to='' onClick={this.handleLogout}>Salir</NavLink></li>
+        <li><NavLink to='/' onClick={this.handleLogout}>Salir</NavLink></li>
         <li><NavLink to='/private' className='btn btn-floating purple lighten-1'><Icon>account_circle</Icon></NavLink></li>
         
       </ul>
@@ -23,5 +23,7 @@ class SignedInLinks extends Component {
   }
   
 }
-
-export default connect(null,actions)(SignedInLinks)
+const mapStateToProps = ({ auth }) => ({
+  auth: auth.user
+})
+export default connect(mapStateToProps,actions)(SignedInLinks)
