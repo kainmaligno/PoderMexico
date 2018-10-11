@@ -15,7 +15,7 @@ const foodStandSchema = new Schema({
     select:{
         type: String,
         enum : ['Tacos', 'Tortas', 'Hamburguesas', 'Hotdogs', 'Pizzas','Quesadillas','Pambazos','Chilakillers','Otro'],
-        default : 'N/A'
+        default : 'Tacos'
     }
     
     // location:{ type:{ type:String, }, coordinates:[Number] },

@@ -11,7 +11,7 @@ router.get('/get_stores', async (req, res, next) => {
     let store = await Store.find().populate('owner').sort({ date: -1 })
     res.status(200).json(store)
   } catch (error) {
-    res.status(400).send("Hay algun error")
+    res.status(400).json({error:'hay un error'})
   }
 });
 

@@ -12,9 +12,9 @@ class Dashboard extends Component {
     this.props.get_stores()
   }
   render() {
-    console.log(this.props.store)
+    //console.log(this.props.store)
     const {store} = this.props
-    console.log(store)  
+    //console.log(store)  
     return( 
       
       <div className="dashboard">

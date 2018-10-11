@@ -3,19 +3,19 @@ import { Card, CardTitle,Tag, Row, Col, Chip } from "react-materialize";
 
 
 const FoodSummary = ({ food }) => {
-  console.log(food)
+  //console.log(food.id)
   return (
     <div className="container">
       <Card
         className="medium"
         header={<CardTitle image={food.img}>{food.name}</CardTitle>}
-        actions={[<a href="#">This is a Link</a>]}
+        actions={[<a href={'/food_detail/'+food._id}>Detalles del Lugar</a>]}
       >
         <Row>
         <Col s={12}>
           <Chip>
-            <img src={food.img} alt="Contact Person" />
-            {food.postedBy}
+            <img src={food.postedBy.avatar} alt="Contact Person" />
+            Agregado por:  {food.postedBy.username}
           </Chip>
           <Tag>{food.select}</Tag>
         </Col>

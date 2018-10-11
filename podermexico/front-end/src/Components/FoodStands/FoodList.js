@@ -2,12 +2,12 @@ import React from 'react'
 import FoodSummary from './FoodSummary';
 
 const FoodList = ({foods}) => {
-  console.log(foods)
+  //console.log(foods)
   return (
-    <div className = 'container'>
+    <div className = 'container' >
       {foods && foods.map(food => {
         return(
-          <FoodSummary food={food} />
+          <FoodSummary food={food} key={food.id}/>
         )
       })}
     </div>

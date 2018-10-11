@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {  Link } from 'react-router-dom';
 import { Button, Icon, Row, Col, Input } from 'react-materialize'
 //import MapWithAMarker from '../Maps/MapComponent';
+import Navbar from '../Layout/Navbar'
 import MapContainer from "../Maps/MapContainer";
 import { connect } from 'react-redux'
 import  * as actions from '../../actions/food'
@@ -39,12 +40,14 @@ class NewFood extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className='row'>
+      <div className="">
+      <Navbar/>
+        <div className='col'>
+        <Col  right className='container'>
         <form onSubmit={this.onSubmit} className="col s12">
         <h4>Registra un Puesto</h4>
-        <Input onChange={this.onChange} name='name'  placeholder="Nombre" s={12} m={8}/>
-        <Input onChange={this.onChange} name='descripcion' placeholder='Descripcion' s={12} m={8} type='textarea' label='Descripcion'/>
+        <Input onChange={this.onChange} name='name'  placeholder="Nombre" icon='account_box' s={12} m={8}/>
+        <Input onChange={this.onChange} name='description' placeholder='Descripcion' icon='text_format' s={12} m={8} type='textarea' label='Descripcion'/>
         <Input onChange={this.handleChangeP} name='photo' type="file" label="Foto" s={12}  m={8}/>
         <Input onChange={this.onChange} name='select' s={12} m={8}type='select' label='Tipo de Lugar' icon='restaurant_menu' defaultValue='2'>
                 <option value='Tacos'>Tacos</option>
@@ -57,20 +60,17 @@ class NewFood extends Component {
                 <option value='Chilakillers'>Chilakillers</option>
                 <option value='Otro'>Otro</option>
         </Input>
-        <div className='map-food right'>
-        <MapContainer/>
-        </div>
        
            {/* botonera */}
-           <Row>
-            <Col>
+           <Row l={12}>
+            <Col l={4}>
               <Button  type='submit' waves="light" className="purple">
                 {" "}
                 <Icon right>send</Icon>
                 Enviar
               </Button>
             </Col>
-            <Col>
+            <Col l={4}>
               <Link to="/">
                 <Button waves="light" className="purple">
                   {" "}
@@ -79,7 +79,7 @@ class NewFood extends Component {
                 </Button>
               </Link>
             </Col>
-            <Col>
+            <Col l={4}>
               <Link to="/food_dash">
                 <Button waves="light" className="purple">
                   {" "}
@@ -90,6 +90,12 @@ class NewFood extends Component {
             </Col>
           </Row>
         </form>
+        </Col>
+        <Row l={6} className='container'>
+        <div className='map-food right'>
+        <MapContainer/>
+        </div>
+        </Row>
         </div>
       </div>
     );

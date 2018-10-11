@@ -22,7 +22,7 @@ class StoreDetails extends Component {
     }
   }
   render() {
-    console.log(this.state)
+    console.log(this.state.store.owner)
     const {name, address,avatar,description} = this.state.store
     return (
       <div className="section">
