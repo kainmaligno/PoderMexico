@@ -11,31 +11,36 @@ function isLoggedIn(req, res, next) {
 
 //nuevo lugar (vista)
 
-router.get("/newFoodStand", (req, res) => {
-  res.render("ironplace/newFoodStand", { user: req.user });
+router.get("/get_foods", async (req, res) => {
+  console.log('------------------estas en getFoods')
+  try {
+    let store = await FoodStand.find().populate('User').sort({ date: -1 })
+    res.status(200).json(store)
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }); //end render
 
 //nuevo lugar (post)
 router.post("/newFoodStand", uploadCloud.single('photo'), (req, res, next) => {
-  const id = req.params.id;
-  console.log('esta es la id de user ',id)
-  // const imgPath = req.file.url;
-  // const imgName = req.file.originalname;
+   const img = req.file.url;
   const { name, description, select, address, longitude, latitude } = req.body;
-  let postedBy = id
+  let postedBy = req.user._id
   //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newFoodStand = new FoodStand({
     postedBy: postedBy,
-    name: name,
+    name,
     description,
-    select
-    // imgName,
-    // imgPath
+    select,
+    img
   });
 
-  newFoodStand.save()
-    .then(() => {
-      res.redirect('/')
+  newFoodStand
+  .save()
+  .then((nuevFood) => {
+    res.status(200).json({
+      nuevFood
+    })
     })
     .catch(e => {
       console.log(e)

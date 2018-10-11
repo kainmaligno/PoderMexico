@@ -4,8 +4,7 @@ const Schema  = mongoose.Schema;
 const foodStandSchema = new Schema({
     name:           String,
     description:    String,
-    imgPath:        String,
-    imgName:        String,
+    img:        String,
     postedBy: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     comentBy: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     meta: {

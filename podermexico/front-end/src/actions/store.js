@@ -4,7 +4,6 @@ import swal from 'sweetalert2';
 const baseUrl = `http://localhost:3000/`;
 
 export const createStore = (store) => (dispatch,getState) => {
-  console.log('llegaste a store redux')
   const form = new FormData();
   for(let k in store){
     form.append(k, store[k])
@@ -14,7 +13,7 @@ export const createStore = (store) => (dispatch,getState) => {
     dispatch({type:CREATE_STORE,store:res.data})
     swal({
       type: 'success',
-      title: 'Usuario registrado con exito',
+      title: 'Tienda nueva agregada',
       text: res.data.name
     })
   })

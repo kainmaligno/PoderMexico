@@ -4,6 +4,7 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
+  stores:[{type:mongoose.Schema.Types.ObjectId,ref:'Store'}],
   role: {
     type: String,
     enum : ['COSTUMER','ADMIN'],

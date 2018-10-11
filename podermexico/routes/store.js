@@ -8,7 +8,7 @@ const uploadCloud = require('../config/cloudinary');
 router.get('/get_stores', async (req, res, next) => {
   console.log('------------------estas en getStores')
   try {
-    let store = await Store.find().populate('User').sort({ date: -1 })
+    let store = await Store.find().populate('owner').sort({ date: -1 })
     res.status(200).json(store)
   } catch (error) {
     res.status(400).send("Hay algun error")
@@ -49,11 +49,12 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
 router.get('/store/:id', async (req, res, next) => {
   try {
     let id = req.params.id;
-    let storeid = await Store.findById({ _id: id }).populate('storage');
-    res.status(200).send(storeid)
+    let oneStore = await Store.findById(id).populate('storage').populate('owner');
+    res.status(200).json(oneStore)
+    console.log(oneStore)
   }
   catch (error) {
-    res.status(400).send('algo salio mal o no hay producto')
+    res.status(404).json({error:'algo salio mal o no hay producto'})
   }
 });
 

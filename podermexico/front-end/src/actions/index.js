@@ -64,8 +64,7 @@ export const signupUser = (user) => dispatch => {
 }
 
 export const logoutUser = () => async dispatch => {
-   
   await axios.get(`${baseUrl}logout`)
-  swal({type:'succes', title:'Hasta la Proxima'})
   dispatch({type: LOGOUT_USER , payload:{}})
+  swal({type:'success', title:'Hasta la Proxima'})
 }

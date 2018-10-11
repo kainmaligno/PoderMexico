@@ -4,7 +4,7 @@ import StoresList from '../Stores/StoresList';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import { get_stores } from '../../actions/store'
-import * as actions from '../../actions'
+
 
 
 class Dashboard extends Component {
@@ -20,16 +20,7 @@ class Dashboard extends Component {
       <div className="dashboard">
       <Navbar/>
       <h3>Visita las tiendas</h3>
-      <Row >
-        
-        <Col lx={4} l={5} m={8} s={12}>
-        <StoresList store={store}/>
-        </Col>
-          
-        
-        
-      </Row>
-        
+        <StoresList store={store} />
       </div>
     )
   }

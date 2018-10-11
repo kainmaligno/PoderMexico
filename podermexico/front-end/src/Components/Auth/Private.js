@@ -8,18 +8,8 @@ class Private extends Component {
   state = {
     user: ""
   }
-  
-  // componentWillMount(res){
-  //   if(res.data){
-  //     const {user} = res.data
-  //     this.setState({
-  //       user:user
-  //     })
-  //   }
-  // }
 
   render() {
-    console.log(this.props.auth.username)
     const {auth} = this.props
     return (
       <div className="container">
@@ -49,7 +39,7 @@ class Private extends Component {
         </Link>
         </Col>
         <Col>
-        <Link to='/'>
+        <Link to='/dashboard'>
         <Button waves="light" className='purple'>
         <Icon right>store</Icon>
         Ver mi tienda

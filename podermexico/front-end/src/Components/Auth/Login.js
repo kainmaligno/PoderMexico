@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Button, Icon, Row, Col } from 'react-materialize'
-//import {loginUser} from '../../lib/authService'
 import {connect} from 'react-redux';
 import  * as actions from '../../actions'
 

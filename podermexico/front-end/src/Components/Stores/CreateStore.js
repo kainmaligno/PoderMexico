@@ -33,6 +33,7 @@ class Stores extends Component {
      event.preventDefault()
      console.log(this.state)
      this.props.createStore(this.state)
+     this.props.history.push('/private')
    }
 
   render() {
