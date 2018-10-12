@@ -14,6 +14,7 @@ import axios from "axios";
 import Navbar from "../Layout/Navbar";
 import MapContainer from "../Maps/MapContainer";
 import Footer from '../Layout/Footer';
+
 class FoodDetail extends Component {
   state = {
     place: {},

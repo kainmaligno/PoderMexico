@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardTitle, Col,Row,Chip,Tag } from "react-materialize";
+import { Link } from 'react-router-dom'
 
 const StoreSummary = ({ store }) => {
   return (
@@ -7,7 +8,7 @@ const StoreSummary = ({ store }) => {
        <Card
         className=""
         header={<CardTitle image={store.avatar}>{store.name}</CardTitle>}
-        actions={[<a href={'/store_details/'+store._id}>Compra algo yaa!!!</a>]}
+        actions={[<Link to={'/store_details/'+store._id}>Compra algo yaa!!!</Link>]}
       >
         {store.description}
         <hr />

@@ -17,7 +17,6 @@ const userSchema = new Schema({
     updatedAt: 'updated_at'
   }
 });
-
 const User = mongoose.model('User', userSchema);
 module.exports = User;
 // location:{ type:{ type:String, }, coordinates:[Number] },

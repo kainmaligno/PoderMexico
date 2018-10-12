@@ -24,6 +24,7 @@ const checkCostumer = checkRoles('COSTUMER');
 const checkAdmin  = checkRoles('ADMIN');
 
 
+
 router.get('/private', ensureLoggedIn(), async (req,res,next) => {
   if(req.isAuthenticated()){
     let user = req.user
@@ -112,7 +113,7 @@ router.post("/signup",uploadCloud.single('photo'),(req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const role     = req.body.role;
-  const avatar = req.file.url
+  const avatar = req.file.url;
   //const { longitude, latitude} = req.body; //cambiar a 
  // let location = { type: 'Point', coordinates: [longitude, latitude] };
   if (username === "" || password === "") {
@@ -148,10 +149,11 @@ router.post("/signup",uploadCloud.single('photo'),(req, res, next) => {
       console.log(nuevousuario);
       res.status(200).json(
         { 
-          username:nuevousuario.username,
-          id:nuevousuario.id,
-          role: nuevousuario.role,
-          avatar: nuevousuario.avatar
+          nuevousuario
+          // username:nuevousuario.username,
+          // id:nuevousuario.id,
+          // role: nuevousuario.role,
+          // avatar: nuevousuario.avatar
         }
       )
     });

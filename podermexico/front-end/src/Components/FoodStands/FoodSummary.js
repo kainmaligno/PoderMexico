@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardTitle,Tag, Row, Col, Chip } from "react-materialize";
+import {Link}  from 'react-router-dom'
 
 
 const FoodSummary = ({ food }) => {
@@ -9,7 +10,7 @@ const FoodSummary = ({ food }) => {
       <Card
         className="medium"
         header={<CardTitle image={food.img}>{food.name}</CardTitle>}
-        actions={[<a href={'/food_detail/'+food._id}>Detalles del Lugar</a>]}
+        actions={[<Link to={'/food_detail/'+food._id}>Detalles del Lugar</Link>]}
       >
         <Row>
         <Col s={12}>

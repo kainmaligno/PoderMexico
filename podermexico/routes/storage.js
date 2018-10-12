@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Storage = require('../models/Storage');
+const Store = require('../models/Stores');
 
 //ALL PRODUCTS
-router.get('/storage', async (req,res,next) => {
+router.get('/get_storage', async (req,res,next) => {
   try{
-    let storage = await Storage.find().populate('Store');
+    let storage = await Storage.find().populate('belongStore');
     res.status(200).send(storage)
   }catch(error){
     res.status(400).send("no hay almacen", error)
@@ -13,24 +14,20 @@ router.get('/storage', async (req,res,next) => {
 })
 
 //NUEVO ALMACEN 
-router.post('/newStorage', (req,res,next) => {
-  const {name,description} = req.body;
-  //const store = req.user.id
+router.post('/newStorage', async (req,res,next) => {
+  console.log('----------------------------------')
+  try{
+  const {name,description, belongStore} = req.body;
   const newStorage = new Storage({
     name,
     description,
-    store
+    belongStore
   })
-  newStorage
-  .save()
-  .then((newStorage) => {
-    res.status(200).json({
-      storage: newStorage
-    })
-  })
-  .catch(error => {
-    res.send('opss! algo ha salido mal', error)
-  })
+  newStorage.save()
+  await res.status(200).json({newStorage})
+  }catch(error){
+    res.status(403).json('opss! algo ha salido mal', error)
+  }
 })
 
 //

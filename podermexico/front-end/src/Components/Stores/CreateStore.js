@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import swal from "sweetalert2";
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {Button, Icon,Input, Row,Col } from 'react-materialize'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/store';

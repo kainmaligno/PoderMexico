@@ -17,7 +17,6 @@ class NewFood extends Component {
   }
 
   handleChangeP = event =>{
-    event.target.files[0]
     this.setState({
       photo: event.target.files[0]
     })
@@ -43,7 +42,7 @@ class NewFood extends Component {
       <div className="">
       <Navbar/>
         <div className='col'>
-        <Col  right className='container'>
+        <Col className='container'>
         <form onSubmit={this.onSubmit} className="col s12">
         <h4>Registra un Puesto</h4>
         <Input onChange={this.onChange} name='name'  placeholder="Nombre" icon='account_box' s={12} m={8}/>

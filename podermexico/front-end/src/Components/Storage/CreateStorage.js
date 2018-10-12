@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Row, Col, Input } from "react-materialize";
+import { createStorage } from '../../actions/storage';
+import {connect} from 'react-redux';
+import * as actions from '../../actions/store';
 
 class CreateStorage extends Component {
   state = {
     name: "",
-    description: ""
+    description: "",
+    belongStore:localStorage.getItem('storeId')
   };
+  
   onChange = event => {
     const { target } = event;
     const { name, value } = target;
@@ -17,9 +22,15 @@ class CreateStorage extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state)
+    this.props.createStorage(this.state)
+    localStorage.removeItem('storeId')
+    this.props.history.push('/dashboard')
+
   };
   render() {
+    console.log(this.props)
+    console.log(this.state)
     return (
       <div className="container">
         <form onSubmit={this.onSubmit}>
@@ -65,4 +76,7 @@ class CreateStorage extends Component {
     );
   }
 }
-export default CreateStorage;
+ const mapStateToProps = ({storage}) => ({
+  storage: storage
+ })
+export default connect(mapStateToProps,{createStorage})(CreateStorage)
