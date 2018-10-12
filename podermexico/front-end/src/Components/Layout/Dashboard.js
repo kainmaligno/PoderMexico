@@ -1,33 +1,36 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'react-materialize';
+import { Button } from 'react-materialize';
+import { Link } from 'react-router-dom'
 import StoresList from '../Stores/StoresList';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
+import { get_stores } from '../../actions/store'
+
+
+
 class Dashboard extends Component {
+  componentDidMount(){
+    this.props.get_stores()
+  }
   render() {
-    //console.log(this.props)
-    const {stores} = this.props
-    console.log(stores)
-    return(
-     
-      <div className="dashboard container">
-       <Navbar/>
-      <Row>
-        <Col s={12} m={6}>
-          <StoresList stores={stores}/>
-        </Col>
-        <Col>
-         {/* noticias */}
-        </Col>
-      </Row>
-        
+    console.log(this.props)
+    const {store} = this.props
+    //console.log(store)  
+    return( 
+      
+      <div className="dashboard">
+      <Navbar/>
+      <h3>Visita las tiendas</h3>
+        <StoresList store={store} />
+        <Link to='/create_store'>
+        <Button floating fab='vertical' faicon='fa fa-plus' icon='add' className='red' large style={{bottom: '60px', right: '35px'}}/>
+        </Link>
       </div>
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    store:state.store.store //ultimo parametro es el que esta en el storeReducer
-  }
-}
-export default connect(mapStateToProps)(Dashboard)
+const mapStateToProps = (stores) => ({
+  store: stores.store
+})
+
+export default connect(mapStateToProps,{get_stores})(Dashboard)

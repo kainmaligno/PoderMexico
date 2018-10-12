@@ -5,11 +5,8 @@ import SignedOutLinks from "./SignedOutLinks";
 import { connect } from 'react-redux';
 
 class  Navbar extends Component {
-  state={
-    user:''
-  }
    checkUser =() => {
-     return (this.props.auth) ?  <SignedInLinks /> :  <SignedOutLinks />
+     return (this.props.auth.username) ?  <SignedInLinks /> :  <SignedOutLinks />
    }
   render(){
     return (

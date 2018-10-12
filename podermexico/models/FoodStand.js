@@ -4,8 +4,7 @@ const Schema  = mongoose.Schema;
 const foodStandSchema = new Schema({
     name:           String,
     description:    String,
-    imgPath:        String,
-    imgName:        String,
+    img:        String,
     postedBy: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     comentBy: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     meta: {
@@ -16,7 +15,7 @@ const foodStandSchema = new Schema({
     select:{
         type: String,
         enum : ['Tacos', 'Tortas', 'Hamburguesas', 'Hotdogs', 'Pizzas','Quesadillas','Pambazos','Chilakillers','Otro'],
-        default : 'N/A'
+        default : 'Tacos'
     }
     
     // location:{ type:{ type:String, }, coordinates:[Number] },

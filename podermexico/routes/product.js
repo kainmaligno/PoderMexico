@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 const uploadCloud = require("../config/cloudinary");
 
 //PRODUCT
-router.get("/product", async (req, res, next) => {
+router.get("/products", async (req, res, next) => {
  try{
   let prod = await Product.find().populate('createdBy');
   res.status(200).send(prod)
@@ -15,7 +15,7 @@ router.get("/product", async (req, res, next) => {
 });
 
 //NEW PRODUCT
-router.post("/product", uploadCloud.single("photo"), (req, res, next) => {
+router.post("/new_product", uploadCloud.single("photo"), (req, res, next) => {
   //const imgPath = req.file.url;
   //const imgName = req.file.originalname;
   

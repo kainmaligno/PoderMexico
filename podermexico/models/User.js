@@ -4,6 +4,7 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
+  stores:[{type:mongoose.Schema.Types.ObjectId,ref:'Store'}],
   role: {
     type: String,
     enum : ['COSTUMER','ADMIN'],
@@ -16,7 +17,6 @@ const userSchema = new Schema({
     updatedAt: 'updated_at'
   }
 });
-
 const User = mongoose.model('User', userSchema);
 module.exports = User;
 // location:{ type:{ type:String, }, coordinates:[Number] },

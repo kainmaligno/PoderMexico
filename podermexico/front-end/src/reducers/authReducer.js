@@ -13,10 +13,17 @@ export default (state = initialState, action) => {
 
     case SIGNUP_USER:
     console.log('agregue un user nuevo',action.user.username)
-    return action.user
+    return{
+       ...state,
+        user:action.user
+    } 
 
     case LOGOUT_USER:
-    return action.payload
+    console.log('saliste')
+    return {
+      state,
+      user:action.payload 
+    }
     
     default:
     return state

@@ -18,9 +18,10 @@ import CreateStorage from './Components/Storage/CreateStorage';
 import StorageDetails from './Components/Storage/StorageDetails';
 import StorageSummary from './Components/Storage/StorageSummary';
 //FOODSTANDS
-import FoodStand from './Components/FoodStands/NewFood'
+import FoodStand from './Components/FoodStands/NewFood';
 import Dashboard from './Components/Layout/Dashboard';
-
+import FoodDash from './Components/Layout/FoodDash';
+import FoodDetail from './Components/FoodStands/FoodDetail'
 
     export default () => <Router>
       <div>
@@ -38,6 +39,8 @@ import Dashboard from './Components/Layout/Dashboard';
           <Route  path = '/storage_details/:id' component = {StorageDetails}/>
           <Route  path = '/storage_summary' component = {StorageSummary}/>
           <Route  path ='/newfood'        component = {FoodStand}/>
+          <Route  path = '/food_dash' component = {FoodDash} />
+          <Route  path = '/food_detail/:id' component = {FoodDetail} />
           {/* <Route  path = '/' component = {} />
           <Route  path = '/' component = {} /> */}
          

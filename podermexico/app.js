@@ -61,8 +61,6 @@ app.use('/auth', authRoutes);
 const product = require('./routes/product');
 app.use('/',product);
 
-const client = require('./routes/client');
-app.use('/', client);
 
 const foodStand = require('./routes/foodStand');
 app.use('/', foodStand);
@@ -75,8 +73,7 @@ app.use('/', storage);
 
 const post = require('./routes/post');
 app.use('/',post);
-const photo = require('./routes/photo');
-app.use('/', photo)
+
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, console.log('listen on ${PORT}'))
 module.exports = app;

@@ -1,16 +1,33 @@
-import React from 'react'
-import { Card, CardTitle } from 'react-materialize';
+import React from "react";
+import { Card, CardTitle, Col,Row,Chip,Tag } from "react-materialize";
+import { Link } from 'react-router-dom'
 
-
-const StoreSummary = ({store}) => {
-  console.log(store)
+const StoreSummary = ({ store }) => {
   return (
-    <Card className='small'
-    header={<CardTitle image='img/sample-1.jpg'>{store.nombre}naa de nombre</CardTitle>}
-    actions={[<a href='#'>This is a Link</a>]}>
-   nada {store.nombre}
-  </Card>
-  )
-}
+    <div className="container">
+       <Card
+        className=""
+        header={<CardTitle image={store.avatar}>{store.name}</CardTitle>}
+        actions={[<Link to={'/store_details/'+store._id}>Compra algo yaa!!!</Link>]}
+      >
+        {store.description}
+        <hr />
+        Direccion:
+        {store.address} <hr /> 
+        <Row>
+        <Col s={12}>
+          <Chip>
+            Propiedad de {store.owner.username}
+            <img src={store.owner.avatar} alt="Contact Person" /> 
+          </Chip>
+          <Tag>con la selecion de {store.name}</Tag>
+        </Col>
+      </Row>
+      </Card>
+       
+     
+    </div>
+  );
+};
 
-export default StoreSummary
+export default StoreSummary;
