@@ -34,8 +34,33 @@ class StoreDetails extends Component {
   checkRole = () => {
     if (this.state.owner.role === "ADMIN") {
       console.log("eres un admin");
+      let userAvatar = this.state.owner.avatar;
+      const { username, role } = this.state.owner;
+      const { name, address, avatar, description } = this.state.store;
       return (
         <div>
+        <h1>
+          Bienvenido a la Tienda: {username}
+        </h1>
+         <Row>
+          <Col s={12}>
+            <Chip>
+              <img src={avatar} alt="Contact Person" />
+              {name}
+            </Chip>
+            <Tag>{description}</Tag>
+            <Tag>{address}</Tag>
+          </Col>
+        </Row>
+        <Row>
+          <Col s={12}>
+            <Chip>
+              <img src={userAvatar} alt="Contact Person" />
+              {username}
+            </Chip>
+            <Tag>{name}</Tag>
+          </Col>
+        </Row>
            <Row>
           <Col>
             <Link to="/create_storage">
@@ -52,43 +77,28 @@ class StoreDetails extends Component {
         </div> */}
           </Col>
         </Row>
-        
+        <hr/>
+
         </div>
       )
     } else if (this.state.owner.role === "COSTUMER") {
       console.log("tu eres un cliente");
       return (
         <div>
-
+          
         </div>
       )
     }
   };
   render() {
-    console.log(this.props.storage)
-    const { name, address, avatar, description } = this.state.store;
-    let userAvatar = this.state.owner.avatar;
-    const { username } = this.state.owner;
+    console.log(this.props.storage.storage)
+    const {storage} = this.props.storage
     return (
       <div className="section">
         <Navbar />
-        <h1>
-          Bienvenido a la Tienda:
-          {name}
-        </h1>
-        <Row>
-          <Col s={12}>
-            <Chip>
-              <img src={avatar} alt="Contact Person" />
-              {address}
-            </Chip>
-            <Tag>{description}</Tag>
-          </Col>
-        </Row>
-        {/* botonera */}
-        <hr />
-
+        
         {this.checkRole()}
+        <StorageList storage={storage}/>
       </div>
     );
   }

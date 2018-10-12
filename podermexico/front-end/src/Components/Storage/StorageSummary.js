@@ -1,16 +1,18 @@
 import React from 'react'
-import { Pagination, Table } from 'react-materialize';
+import { Table } from 'react-materialize';
 
-const StorageSummary = (props) => {
+const StorageSummary = (st) => {
+  console.log(st.storageone.name)
+  //const {name,description} = storageoone
   return (
     <div className='container'>
-      <Pagination items={10} activePage={1} maxButtons={8} />
-      <Table>
+    <h1>{st.storageone.name}</h1>
+    <Table>
   <thead>
     <tr>
-      <th data-field="id">Nombre</th>
-      <th data-field="name">Nombre Item</th>
-      <th data-field="price">Precio Item</th>
+      <th data-field="id">Name</th>
+      <th data-field="name">Item Name</th>
+      <th data-field="price">Item Price</th>
     </tr>
   </thead>
 
