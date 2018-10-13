@@ -6,7 +6,7 @@ import StoreSummary from './StoreSummary';
    const stores = store.stores
   return (
     <div className ='container'>
-         {stores && stores.map((store,i) => {
+         { stores.map((store,i) => {
            return (
              <StoreSummary store={store} key={i}/>
            )

@@ -1,13 +1,21 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Table } from 'react-materialize';
+import { connect }from 'react-redux';
+import { isArray } from 'util';
 
-const StorageSummary = (st) => {
-  console.log(st.storageone.name)
-  //const {name,description} = storageoone
-  return (
-    <div className='container'>
-    <h1>{st.storageone.name}</h1>
-    <Table>
+class StorageSummary extends Component{
+  state={
+     storage:{}
+  }
+   
+  checkOwner = () => { 
+    const tiendaId =  localStorage.getItem('storeId')
+    const propietarioId = this.props.storageone.belongStore
+    if(this.props.auth.storage){
+       return(
+         <div>
+           <h2>{this.props.storageone.name}</h2>
+        <Table>
   <thead>
     <tr>
       <th data-field="id">Name</th>
@@ -34,8 +42,24 @@ const StorageSummary = (st) => {
     </tr>
   </tbody>
 </Table>
-    </div>
-  )
+         </div>
+       )
+    }
+  }
+  render(){
+    console.log(this.props)
+    // console.log(localStorage.getItem('storeId'))
+    return(
+      <div>
+       {this.checkOwner()}
+        <span>No hay Almacen por el momento...</span>
+       
+      </div>
+    )
+  }    
 }
+const mapStateToProps = (auth) => ({
+  auth:auth
+})
 
-export default StorageSummary
+export default connect(mapStateToProps)(StorageSummary)

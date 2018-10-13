@@ -12,6 +12,7 @@ class StoreDetails extends Component {
     store: {},
     owner: {}
   };
+  
   async componentDidMount() {
     try {
       let storeid = this.props.match.params.id;
@@ -20,7 +21,7 @@ class StoreDetails extends Component {
       //console.log(res.data._id)
       localStorage.setItem('storeId',res.data._id)
       this.setState({
-        store
+        store:store
       });
       this.setState({
         owner: store.owner
@@ -29,18 +30,50 @@ class StoreDetails extends Component {
       console.log(error);
     }
     this.props.get_storage()
-    console.log(this.props)
+    //console.log(this.props.storage.auth.user.username)
+    //console.log(this.state.owner.username)
   }
   checkRole = () => {
-    if (this.state.owner.role === "ADMIN") {
-      console.log("eres un admin");
-      let userAvatar = this.state.owner.avatar;
-      const { username, role } = this.state.owner;
-      const { name, address, avatar, description } = this.state.store;
-      return (
+    return(this.props.storage.auth.user.role==='ADMIN' && this.props.storage.auth.user.username=== this.state.owner.username)? (
         <div>
+         <Col>
+            <Link to="/create_storage">
+              <Button waves="light" className="purple">
+                <Icon right>storage</Icon>
+                Crear Almacen
+              </Button>
+            </Link>
+          </Col><br/>
+          <Col>
+            <Link to="/dashboard">
+              <Button waves="light" className="purple">
+                <Icon right>send</Icon>
+                todas las tiendas
+              </Button>
+            </Link>
+          </Col>
+        </div>
+      ):(<Col>
+        <Link to="/dashboard">
+          <Button waves="light" className="purple">
+            <Icon right>send</Icon>
+            todas las tiendas
+          </Button>
+        </Link>
+      </Col>)   
+    }
+  
+  render() {
+    //console.log(this.props.storage.storage)
+    let userAvatar = this.state.owner.avatar;
+    const { username, role } = this.state.owner;
+    const { name, address, avatar, description } = this.state.store;
+    const {storage} = this.props.storage
+    return (
+      <div className="section">
+        <Navbar />
         <h1>
-          Bienvenido a la Tienda: {username}
+          Bienvenido a la Tienda: {name}
         </h1>
          <Row>
           <Col s={12}>
@@ -56,47 +89,12 @@ class StoreDetails extends Component {
           <Col s={12}>
             <Chip>
               <img src={userAvatar} alt="Contact Person" />
-              {username}
+              Propietario:{username}
             </Chip>
             <Tag>{name}</Tag>
           </Col>
         </Row>
-           <Row>
-          <Col>
-            <Link to="/create_storage">
-              <Button waves="light" className="purple">
-                <Icon right>storage</Icon>
-                Crear Almacen
-              </Button>
-            </Link>
-          </Col>
-          <Col>
-          {/* <div>
-          almacen de :
-          <StorageList/>
-        </div> */}
-          </Col>
-        </Row>
         <hr/>
-
-        </div>
-      )
-    } else if (this.state.owner.role === "COSTUMER") {
-      console.log("tu eres un cliente");
-      return (
-        <div>
-          
-        </div>
-      )
-    }
-  };
-  render() {
-    console.log(this.props.storage.storage)
-    const {storage} = this.props.storage
-    return (
-      <div className="section">
-        <Navbar />
-        
         {this.checkRole()}
         <StorageList storage={storage}/>
       </div>

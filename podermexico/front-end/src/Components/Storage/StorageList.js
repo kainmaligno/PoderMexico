@@ -6,6 +6,7 @@ const StorageList = ({storage}) => {
 
   return (
     <div className='container'>
+        {/* <StorageSummary storageone={storage}/> */}
       { storage.storage.map(storageoone => {
         return(
           <StorageSummary storageone={storageoone}/>
