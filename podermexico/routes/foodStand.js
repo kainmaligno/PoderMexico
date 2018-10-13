@@ -27,7 +27,7 @@ router.get("/get_foods", async (req, res) => {
 router.post("/newFoodStand", uploadCloud.single("photo"), (req, res, next) => {
   const img = req.file.url;
   const { name, description, select, address, longitude, latitude } = req.body;
-  let postedBy = req.user._id;
+  let postedBy = req.user.id;
   //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newFoodStand = new FoodStand({
     postedBy: postedBy,
