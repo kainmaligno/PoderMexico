@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
       
-app.use(favicon(__dirname+'front-end/build/favicon.ico'))
+//app.use(favicon(__dirname+'front-end/build/favicon.ico'))
 app.use(express.static(__dirname))
 app.use(express.static(path.join(__dirname, 'front-end/build')));
 
