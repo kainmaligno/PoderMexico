@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const storageSchema = new Schema ({
  name:String,
  description: String,
- belongStore: {type:mongoose.Schema.Types.ObjectId,ref:'Store'},
-
+ belongStore: {type:mongoose.Schema.Types.ObjectId,ref:'Store',childPath:'storage'},
  products:[{product:{type:mongoose.Schema.Types.ObjectId, ref:"Product"}}]
 }, {
   timestamps: {

@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Store = require('../models/Stores');
 const uploadCloud = require('../config/cloudinary');
-
+const User = require('../models/User');
 
 //STORE
 router.get('/get_stores', async (req, res, next) => {
   //.sort({ date:-1 })
   console.log('------------------estas en getStores')
   try {
-    let store = await Store.find().populate('owner') 
+    let store = await Store.find().populate('owner').sort( {createdAt:-1} ) 
     res.status(200).json(store)
   } catch (error) {
     res.status(400).json({error:'hay un error'})
@@ -20,7 +20,7 @@ router.get('/get_stores', async (req, res, next) => {
 router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
   const avatar = req.file.url;
   const { name, description, latitude, longitude, address, warehouse } = req.body;
-  const owner = req.user._id;
+  const owner = req.user.id;
   
   //let location = { type: 'Point', coordinates: [longitude, latitude] };
   const newStore = new Store({
@@ -28,10 +28,12 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
     name,
     description,
     address,
-    avatar
+    avatar,
+    
   })
   newStore
     .save()
+    
     .then((nuevaStore) => {
       res.status(200).json({
        store_name: nuevaStore.name,
@@ -40,8 +42,10 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
        store_owner:nuevaStore.owner
       })
     })
+    //User.findByIdAndUpdate(req.user.id).push({stores:store._id})
+    //User.findByIdAndUpdate(req.user._id, { $push: { stores: nuevaStore._id } })
     .catch(error => {
-      res.status(400).send(error,"algo salio mal al agregar tienda")
+      res.status(400).json({error:"algo salio mal al agregar tienda"})
     })
 
 });
