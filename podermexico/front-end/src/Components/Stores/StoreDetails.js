@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Layout/Navbar";
 import StorageList from  '../Storage/StorageList'
+import StorageDetails from '../Storage/StorageDetails'
 import { connect }from 'react-redux';
 import { get_storage } from '../../actions/storage'
 
@@ -96,7 +97,8 @@ class StoreDetails extends Component {
         </Row>
         <hr/>
         {this.checkRole()}
-        <StorageList storage={storage}/>
+        {/* <StorageList storage={storage}/> */}
+        {<StorageDetails storage={storage}/>}
       </div>
     );
   }

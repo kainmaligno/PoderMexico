@@ -14,7 +14,6 @@ export default (state = initState, action)=>{
       loading:false
     }
     case GET_STORAGE:
-    console.log(action.get_storage)
     return{
       ...state,
       storage:action.get_storage,

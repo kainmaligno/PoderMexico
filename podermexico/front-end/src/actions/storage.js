@@ -29,7 +29,7 @@ export const get_storage = () => dispatch => {
   dispatch(setItemsLoading())
   axios.get(`${baseUrl}get_storage`,{withCredentials:true})
   .then(res =>{
-    console.log(res.data)
+    //console.log(res.data)
     dispatch({type:GET_STORAGE, get_storage:res.data})
   })
   .catch(error => {

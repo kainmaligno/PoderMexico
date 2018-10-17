@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Table } from 'react-materialize';
 import { connect }from 'react-redux';
-import { isArray } from 'util';
+
 
 class StorageSummary extends Component{
   state={
@@ -9,8 +9,9 @@ class StorageSummary extends Component{
   }
    
   checkOwner = () => { 
-    const tiendaId =  localStorage.getItem('storeId')
-    const propietarioId = this.props.storageone.belongStore
+    //const tiendaId =  localStorage.getItem('storeId')
+    //const propietarioId = this.props.storageone.belongStore
+
     if(this.props.auth.storage){
        return(
          <div>

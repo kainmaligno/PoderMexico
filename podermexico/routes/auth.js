@@ -103,7 +103,6 @@ router.post('/login', (req, res, next) => {
       res.status(200).json(req.user)
     })
   })(req, res, next)
-   
 });
 
 
