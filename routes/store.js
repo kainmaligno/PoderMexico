@@ -33,8 +33,8 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
   })
   newStore
     .save()
-    
     .then((nuevaStore) => {
+      User.findByIdAndUpdate(owner, {$push: {stores:nuevaStore._id}}, {new:true})
       res.status(200).json({
        store_name: nuevaStore.name,
        store_desc: nuevaStore.description,
@@ -42,9 +42,10 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
        store_owner:nuevaStore.owner
       })
     })
-    //User.findByIdAndUpdate(req.user.id).push({stores:store._id})
+    //User.findByIdAndUpdate(req.user._id, {$push: {stores:store._id}}, {new:true})
     //User.findByIdAndUpdate(req.user._id, { $push: { stores: nuevaStore._id } })
     .catch(error => {
+      console.log(error)
       res.status(400).json({error:"algo salio mal al agregar tienda"})
     })
 
