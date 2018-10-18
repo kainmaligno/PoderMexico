@@ -10,17 +10,15 @@ class Dashboard extends Component {
     this.props.get_stores()
   }
   render() {
-    const {store} = this.props
-    //console.log(store)  
+   
+    //console.log('estas en dash',this.props.store.store.stores) 
+    const {stores} = this.props.store.store
     return( 
       
       <div className="dashboard">
       <Navbar/>
       <h3 style={{paddingLeft:'15%'}}>Visita las tiendas</h3>
-        
-        <StoresList store={store} />
-       
-       
+        <StoresList stores={stores} />
         {/* <Link to='/create_store'>
         <Button floating fab='vertical' faicon='fa fa-plus' icon='add' className='red' large style={{bottom: '60px', right: '35px'}}/>
         </Link> */}
@@ -29,7 +27,7 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = (stores) => ({
-  store: stores.store,
+  store: stores
 })
 
 export default connect(mapStateToProps,{get_stores})(Dashboard)

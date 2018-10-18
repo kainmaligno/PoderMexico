@@ -28,7 +28,7 @@ export const createStore = (store) => (dispatch,getState) => {
 
 
 
-export const get_stores = () => (dispatch) => {
+export const get_stores = (stores) => dispatch => {
   dispatch(setItemsLoading())
   axios.get(`${baseUrl}get_stores`)
   .then(res => {

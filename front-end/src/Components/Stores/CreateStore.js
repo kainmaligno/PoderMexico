@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 import {Button, Icon,Input, Row,Col } from 'react-materialize'
 import { connect } from 'react-redux'
-import { createStore } from '../../actions/store';
+//import { createStore } from '../../actions/store';
 import MapContainer from '../Maps/MapContainer';
 import Navbar from '../Layout/Navbar';
+import * as actions from '../../actions/store'
+
 class Stores extends Component {
   
    state = {
@@ -127,9 +129,9 @@ class Stores extends Component {
 const mapStateToProps = ({stores}) =>({
   store: stores
 })
-const mapDispatchToProps = (dispatch) => {
-  return{
-    store: (store)=> dispatch(createStore(store))
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Stores);
+// const mapDispatchToProps = (dispatch) => {
+//   return{
+//     store: (store)=> dispatch(createStore(store))
+//   }
+// }
+export default connect(mapStateToProps,actions)(Stores);

@@ -31,7 +31,7 @@ export const createFood = (food) => dispatch => {
 export const get_foods = (foods) => dispatch => {
   dispatch(setItemsLoading())
   axios.get(`${baseUrl}get_foods`)
-  .then( res => {
+  .then(res => {
     dispatch({type:GET_FOOD, get_foods:res.data})
   })
 }

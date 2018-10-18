@@ -34,7 +34,7 @@ router.post('/new_store', uploadCloud.single('photo'),(req, res, next) => {
   newStore
     .save()
     .then((nuevaStore) => {
-      User.findByIdAndUpdate(owner, {$push: {stores:nuevaStore._id}}, {new:true})
+       User.findByIdAndUpdate(owner, {$push: {stores:nuevaStore._id}}, {new:true})
       res.status(200).json({
        store_name: nuevaStore.name,
        store_desc: nuevaStore.description,

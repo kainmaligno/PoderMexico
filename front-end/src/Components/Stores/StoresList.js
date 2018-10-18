@@ -2,11 +2,11 @@ import React from 'react'
 import StoreSummary from './StoreSummary';
 
 
- const Storeslist = ({store}) => {
-   const stores = store.stores
+ const Storeslist = ({stores}) => {
+
   return (
     <div className ='container row'>
-         {stores &&  stores.map((store,i) => {
+         {stores.map((store,i) => {
            return (
             <StoreSummary store={store} key={i}/>
            )
