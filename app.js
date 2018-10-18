@@ -53,8 +53,7 @@ app.use(flash());
 require('./passport')(app);
     
 
-const index = require('./routes/index');
-app.use('/', index);
+
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
@@ -74,6 +73,9 @@ app.use('/', storage);
 
 const post = require('./routes/post');
 app.use('/',post);
+
+const index = require('./routes/index');
+app.use('/', index);
 
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, console.log('listen on ${PORT}'))
