@@ -6,7 +6,7 @@ import {Link}  from 'react-router-dom'
 const FoodSummary = ({ food }) => {
   //console.log(food.id)
   return (
-    <div className="container">
+    <div className="container col s12 m3 l4 xl5">
       <Card
         className="medium"
         header={<CardTitle image={food.img}>{food.name}</CardTitle>}

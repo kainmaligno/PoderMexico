@@ -1,16 +1,16 @@
 import React from "react";
-import { Card, CardTitle, Col,Row,Chip,Tag } from "react-materialize";
+import { Card, CardTitle, Col,Row,Chip } from "react-materialize";
 import { Link } from 'react-router-dom'
 
 const StoreSummary = ({ store }) => {
   return (
-    <div className="container">
-       <Card
-        className=""
-        header={<CardTitle image={store.avatar}>{store.name}</CardTitle>}
+    <div className=" container col s12 m6 l4 xl3">
+     <Card 
+        className="large"
+        header={<CardTitle  image={store.avatar}></CardTitle>}
         actions={[<Link to={'/store_details/'+store._id}>Compra algo yaa!!!</Link>]}
       >
-        {store.description}
+     Nombre:{store.name} {store.description}
         <hr />
         Direccion:
         {store.address} <hr /> 
@@ -20,10 +20,12 @@ const StoreSummary = ({ store }) => {
             Propiedad de {store.owner.username}
             <img src={store.owner.avatar} alt="Contact Person" /> 
           </Chip>
-          <Tag>con la selecion de {store.name}</Tag>
+          {/* <Chip>con la selecion de {store.name}</Chip> */}
         </Col>
       </Row>
       </Card>
+     
+      
        
      
     </div>
@@ -31,3 +33,4 @@ const StoreSummary = ({ store }) => {
 };
 
 export default StoreSummary;
+//s12 m6 l4 xl3" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}

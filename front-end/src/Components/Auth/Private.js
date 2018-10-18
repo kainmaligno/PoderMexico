@@ -29,7 +29,7 @@ class Private extends Component {
           </Col>
 
           <Col l={4}>
-            <img className="avatar" src={auth.avatar} />
+            <img className="avatar" src={auth.avatar} alt='avatar' />
           </Col>
         </Row>
         <Row>
@@ -82,7 +82,7 @@ class Private extends Component {
           </Col>
 
           <Col l={4}>
-            <img className="avatar" src={auth.avatar} />
+            <img className="avatar" src={auth.avatar} alt='avatar'/>
           </Col>
         </Row>
         <Row>
@@ -90,7 +90,7 @@ class Private extends Component {
         <Link to='/newfood'>
         <Button waves="light" className='purple'>
         <Icon right>apps</Icon>
-        Guerra de Puestos
+        Recomendar un Puesto
         </Button>
         </Link>
         </Col>
@@ -103,18 +103,18 @@ class Private extends Component {
         </Link>
         </Col>
         <Col>
-        <Link to='/'>
-        <Button waves="light" className='purple'>
-        <Icon right>home</Icon>
-         Home
-        </Button>
-        </Link>
-        </Col>
-        <Col>
         <Link to='/food_dash'>
         <Button waves="light" className='purple'>
         <Icon right>restaurant_menu</Icon>
          Todos los puestos
+        </Button>
+        </Link>
+        </Col>
+        <Col>
+        <Link to='/'>
+        <Button waves="light" className='purple'>
+        <Icon right>home</Icon>
+         Home
         </Button>
         </Link>
         </Col>

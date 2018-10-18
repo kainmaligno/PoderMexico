@@ -1,8 +1,9 @@
 import React, {Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from 'react-redux';
+import power from '../../assets/podermexico.png'
 
 class  Navbar extends Component {
    checkUser =() => {
@@ -12,9 +13,9 @@ class  Navbar extends Component {
     return (
       <nav className="nav-wrapper grey darken-3">
         <div className="container">
-          <Link to="/" className="brand-logo">
-            Poder Mexico
-          </Link>
+        <ul>
+          <li><NavLink to='/'> <img className='logo' src={power} alt="poder mexico"/></NavLink></li>
+        </ul>
          {this.checkUser()}
         </div>
       </nav>

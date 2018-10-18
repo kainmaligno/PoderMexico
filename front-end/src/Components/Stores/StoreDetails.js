@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Row, Col, Chip, Tag, Button, Icon, Table } from "react-materialize";
+import { Row, Col, Chip, Tag, Button, Icon} from "react-materialize";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Layout/Navbar";
-import StorageList from  '../Storage/StorageList'
+import MapContainer from "../Maps/MapContainer";
 import StorageDetails from '../Storage/StorageDetails'
+import StorageList from '../Storage/StorageList';
 import { connect }from 'react-redux';
 import { get_storage } from '../../actions/storage'
+
 
 class StoreDetails extends Component {
   state = {
@@ -67,7 +69,7 @@ class StoreDetails extends Component {
   render() {
     //console.log(this.props.storage.storage)
     let userAvatar = this.state.owner.avatar;
-    const { username, role } = this.state.owner;
+    const { username } = this.state.owner;
     const { name, address, avatar, description } = this.state.store;
     const {storage} = this.props.storage
     return (
@@ -77,28 +79,32 @@ class StoreDetails extends Component {
           Bienvenido a la Tienda: {name}
         </h1>
          <Row>
-          <Col s={12}>
+          <Col s={12} m={6} l={3}>
             <Chip>
               <img src={avatar} alt="Contact Person" />
               {name}
             </Chip>
             <Tag>{description}</Tag>
             <Tag>{address}</Tag>
-          </Col>
-        </Row>
-        <Row>
-          <Col s={12}>
+          </Col> 
+        
+        
+          <Col s={12} m={6} l={3}>
             <Chip>
               <img src={userAvatar} alt="Contact Person" />
               Propietario:{username}
             </Chip>
             <Tag>{name}</Tag>
           </Col>
+          <Col>
+            <MapContainer s={12} m={6} l={3}/>
+          </Col>
         </Row>
         <hr/>
         {this.checkRole()}
-        {/* <StorageList storage={storage}/> */}
-        {<StorageDetails storage={storage}/>}
+
+        <StorageList storage={storage}/>
+        <StorageDetails storage={storage}/>
       </div>
     );
   }

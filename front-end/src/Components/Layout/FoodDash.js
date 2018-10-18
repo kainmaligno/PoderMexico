@@ -19,7 +19,7 @@ class FoodDash extends Component {
       
       <div className="dashboard">
       <Navbar/>
-      <h3>Visita los puestos</h3>
+      <h3 style={{paddingLeft:'15%'}} >Visita los puestos</h3>
       <Row > 
         <FoodList foods={foods}/> 
         <Link to='/newfood'>

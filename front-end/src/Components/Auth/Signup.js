@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
-import { Button, Icon, Row, Input, Navbar, Col} from "react-materialize";
+import { Button, Icon, Row, Input, Col} from "react-materialize";
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 
@@ -14,12 +14,7 @@ class Signup extends Component {
     
       
   };
-  // componentWillReceiveProps({data}){
-  //   if(data){
-  //     const {user} = data
-  //     this.setState({ user })
-  //   }
-  // }
+  
 
   inputChange = event => {
     const { target } = event;

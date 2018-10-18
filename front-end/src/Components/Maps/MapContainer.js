@@ -47,7 +47,8 @@ class MapContainer extends Component {
     this.setState({
       viewport: { ...this.state.viewport, ...viewport }
     });
-    console.log(this.state)
+    localStorage.setItem('latitude',this.state.latitude)
+    localStorage.setItem('longitude',this.state.longitude)
   };
 
   render() {

@@ -3,7 +3,6 @@ import {
   Row,
   Col,
   Chip,
-  Tag,
   Button,
   Icon,
   Card,
@@ -57,7 +56,7 @@ class FoodDetail extends Component {
             <Card
               horizontal
               header={<CardTitle image={img} />}
-              actions={[<a href="#">Agregar Post?</a>]}
+              actions={[<Link to="/">Agregar Post?</Link>]}
             >  <p>Breve descripcion: {description}</p><hr/>
               <Row>
                 <Col s={12}>

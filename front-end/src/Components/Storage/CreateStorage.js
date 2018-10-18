@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button, Icon, Row, Col, Input } from "react-materialize";
 import { createStorage } from '../../actions/storage';
 import {connect} from 'react-redux';
-import * as actions from '../../actions/store';
 
 class CreateStorage extends Component {
   state = {
