@@ -11,7 +11,7 @@ class Dashboard extends Component {
   }
   render() {
    
-    //console.log('estas en dash',this.props.store.store.stores) 
+    console.log('estas en dash',this.props.store.store.stores) 
     const {stores} = this.props.store.store
     return( 
       

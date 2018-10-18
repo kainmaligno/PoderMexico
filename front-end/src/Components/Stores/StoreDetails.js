@@ -65,8 +65,13 @@ class StoreDetails extends Component {
         </Link>
       </Col>)   
     }
+
+    hasStorage = () => {
+      // return ()? ():()
+    }
   
   render() {
+    
     //console.log(this.props.storage.storage)
     let userAvatar = this.state.owner.avatar;
     const { username } = this.state.owner;
@@ -102,9 +107,9 @@ class StoreDetails extends Component {
         </Row>
         <hr/>
         {this.checkRole()}
-
+        
         <StorageList storage={storage}/>
-        <StorageDetails storage={storage}/>
+        {/* <StorageDetails storage={storage}/> */}
       </div>
     );
   }

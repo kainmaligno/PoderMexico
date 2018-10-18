@@ -6,9 +6,9 @@ import StoreSummary from './StoreSummary';
 
   return (
     <div className ='container row'>
-         {stores.map((store,i) => {
+         {stores && stores.map(store => {
            return (
-            <StoreSummary store={store} key={i}/>
+            <StoreSummary store={store} key={store.id}/>
            )
          })}
          

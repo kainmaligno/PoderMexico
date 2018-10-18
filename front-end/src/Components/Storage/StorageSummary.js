@@ -9,9 +9,11 @@ class StorageSummary extends Component{
   }
    
   checkOwner = () => { 
-    //const tiendaId =  localStorage.getItem('storeId')
+    const tiendaId =  localStorage.getItem('storeId')
+    console.log(tiendaId)
     //const propietarioId = this.props.storageone.belongStore
-
+    const {storageone} = this.props
+   
     if(this.props.auth.storage){
        return(
          <div>

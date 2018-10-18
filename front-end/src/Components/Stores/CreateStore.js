@@ -33,7 +33,6 @@ class Stores extends Component {
 
    submit = event => {
      event.preventDefault()
-     console.log(this.state)
      this.props.createStore(this.state)
      this.props.history.push('/private')
    }
@@ -126,12 +125,8 @@ class Stores extends Component {
   }
 }
 
-const mapStateToProps = ({stores}) =>({
-  store: stores
+const mapStateToProps = ({store}) =>({
+  store: store
 })
-// const mapDispatchToProps = (dispatch) => {
-//   return{
-//     store: (store)=> dispatch(createStore(store))
-//   }
-// }
+
 export default connect(mapStateToProps,actions)(Stores);
